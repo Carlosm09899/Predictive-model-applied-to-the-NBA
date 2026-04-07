@@ -30,11 +30,17 @@ jobs:
         run: python nba_backtester.py
 
       - name: Ejecutar Predictor (Nuevos Picks)
-        run: python nba_predictor.py
+        run: python nba_predictor.pys
 
       - name: Commit and push if changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add predictions.json predictions_history.csv results.json
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Actualización de picks y resultados reales" && git push)
+          
+          # Agregamos los archivos de uno en uno con "|| true" para que no truene si uno falta
+          git add predictions.json || true
+          git add predictions_history.csv || true
+          git add results.json || true
+          
+          # Solo hace commit si detecta cambios reales en los archivos
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Actualización de picks y resultados" && git push)
