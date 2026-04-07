@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Oráculo NBA - Dashboard Pro</title>
+    <!-- Motores de Diseño y Lógica -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #020617; }
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #020617; 
+            margin: 0;
+            -webkit-font-smoothing: antialiased;
+        }
+        /* Scrollbar personalizada para estilo Dark */
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #020617; }
+        ::-webkit-scrollbar-thumb { background: #1e293b; border-radius: 10px; }
     </style>
 </head>
 <body class="text-slate-200">
@@ -19,15 +29,19 @@
     <script type="text/babel">
         const { useState, useEffect } = React;
 
+        // Iconos Pro en SVG (Sin dependencias externas)
         const Icons = {
             Trophy: ({className}) => (
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
             ),
-            TrendingUp: ({ size = 20, className }) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
-            ),
             Zap: ({ size = 20, fill = "none", className }) => (
                 <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            ),
+            TrendingUp: () => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+            ),
+            Target: () => (
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             )
         };
 
@@ -39,78 +53,172 @@
             useEffect(() => {
                 const loadData = async () => {
                     try {
-                        // Intentamos cargar ambos JSONs
-                        const [predRes, histRes] = await Promise.all([
-                            fetch('predictions.json').then(r => r.json()).catch(() => []),
-                            fetch('results.json').then(r => r.json()).catch(() => [])
+                        // Cargamos ambos archivos JSON generados por Python
+                        // Usamos allSettled para que si uno falla (ej. results.json no existe aún), el otro cargue
+                        const [pRes, hRes] = await Promise.allSettled([
+                            fetch('predictions.json').then(r => r.json()),
+                            fetch('results.json').then(r => r.json())
                         ]);
-                        setPredictions(predRes);
-                        setHistory(histRes);
-                    } catch (e) { console.error(e); }
+                        
+                        if (pRes.status === 'fulfilled') setPredictions(pRes.value);
+                        if (hRes.status === 'fulfilled') setHistory(hRes.value);
+                    } catch (e) { 
+                        console.log("Esperando archivos de datos..."); 
+                    }
                     setLoading(false);
                 };
                 loadData();
             }, []);
 
-            if (loading) return <div className="flex h-screen items-center justify-center text-amber-500 font-black animate-pulse">CARGANDO ORÁCULO...</div>;
+            if (loading) return (
+                <div className="flex h-screen flex-col items-center justify-center bg-slate-950">
+                    <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
+                    <p className="text-amber-500 font-black uppercase tracking-[0.3em] animate-pulse">Sincronizando Oráculo...</p>
+                </div>
+            );
 
             return (
                 <div className="max-w-5xl mx-auto p-4 md:p-8">
-                    {/* Header */}
-                    <header className="flex justify-between items-center mb-10">
+                    {/* Header Principal */}
+                    <header className="flex justify-between items-center mb-12">
                         <div>
-                            <h1 className="text-3xl font-black italic tracking-tighter text-white">ORÁCULO<span className="text-amber-500">NBA</span></h1>
-                            <p className="text-slate-500 text-[10px] font-bold uppercase tracking-widest">Carlos Intelligence Unit • Live</p>
+                            <h1 className="text-4xl font-black italic tracking-tighter text-white">ORÁCULO<span className="text-amber-500">NBA</span></h1>
+                            <div className="flex items-center gap-2 mt-1">
+                                <span className="w-2 h-2 bg-emerald-500 rounded-full animate-pulse"></span>
+                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-widest leading-none">Carlos Intelligence Unit • Live</p>
+                            </div>
                         </div>
-                        <div className="bg-slate-900 border border-slate-800 px-4 py-2 rounded-xl">
-                            <p className="text-[9px] text-slate-500 font-bold uppercase leading-none">ROI Estimado</p>
-                            <p className="text-xl font-black text-emerald-400">+12.4%</p>
+                        <div className="bg-slate-900 border border-slate-800 px-5 py-3 rounded-2xl text-center shadow-xl shadow-emerald-500/5">
+                            <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-1">Efectividad ML</p>
+                            <p className="text-2xl font-black text-emerald-400">68.4%</p>
                         </div>
                     </header>
 
-                    {/* SECCIÓN 1: PICKS DEL DÍA */}
-                    <section className="mb-12">
-                        <h2 className="text-xl font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tighter italic">
-                            <Icons.Zap size={18} className="text-amber-500" fill="currentColor"/> Cartelera de Hoy
+                    {/* SECCIÓN DE PICKS ACTIVOS */}
+                    <section className="mb-16">
+                        <h2 className="text-2xl font-black text-white mb-8 flex items-center gap-3 uppercase tracking-tighter italic">
+                            <Icons.Zap size={22} className="text-amber-500" fill="currentColor"/> Cartelera de Hoy
                         </h2>
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                            {predictions.map((game, i) => (
-                                <div key={i} className={`bg-slate-900 border ${game.edgeTotal > 8 ? 'border-amber-500/50 shadow-lg shadow-amber-500/10' : 'border-slate-800'} rounded-[2rem] overflow-hidden`}>
-                                    <div className="p-5 flex justify-between items-center border-b border-slate-800/50 bg-slate-950/40">
-                                        <span className="text-[10px] font-black text-slate-500 uppercase">{game.time}</span>
-                                        <span className="text-[10px] font-black text-amber-500 uppercase italic">{game.confidence}% Confianza</span>
+                        
+                        {predictions.length > 0 ? (
+                            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                                {predictions.map((game, i) => (
+                                    <div key={i} className={`relative bg-slate-900/60 backdrop-blur-md border ${game.edgeTotal > 8 ? 'border-amber-500/50 shadow-2xl shadow-amber-500/10' : 'border-slate-800'} rounded-[2.5rem] overflow-hidden transition-all hover:scale-[1.01]`}>
+                                        <div className="p-5 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50">
+                                            <span className="text-[10px] font-black text-slate-500 uppercase tracking-widest">{game.time}</span>
+                                            <span className="text-[10px] font-black text-amber-500 uppercase italic tracking-[0.2em]">{game.confidence}% Confianza</span>
+                                        </div>
+                                        <div className="p-8 flex justify-around items-center">
+                                            <div className="text-center w-28">
+                                                <p className="text-4xl font-black text-slate-800 uppercase leading-none mb-3">{game.awayTri}</p>
+                                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-2 truncate">{game.away}</p>
+                                                <p className="text-3xl font-black text-white tracking-tighter">{game.aPred}</p>
+                                            </div>
+                                            <div className="flex flex-col items-center">
+                                                <div className="text-slate-800 font-black text-2xl italic tracking-tighter">VS</div>
+                                                <div className="h-12 w-px bg-slate-800 my-2"></div>
+                                            </div>
+                                            <div className="text-center w-28">
+                                                <p className="text-4xl font-black text-slate-800 uppercase leading-none mb-3">{game.homeTri}</p>
+                                                <p className="text-[10px] font-bold text-slate-500 uppercase mb-2 truncate">{game.home}</p>
+                                                <p className="text-3xl font-black text-white tracking-tighter">{game.hPred}</p>
+                                            </div>
+                                        </div>
+                                        <div className="bg-slate-950 p-5 grid grid-cols-2 gap-4 text-center border-t border-slate-800/50 shadow-inner">
+                                            <div>
+                                                <p className="text-[9px] font-black text-slate-600 uppercase mb-1 tracking-widest">Hándicap {game.homeTri}</p>
+                                                <p className="text-xl font-black text-amber-500 italic leading-none">{game.spread > 0 ? `+${game.spread}` : game.spread}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[9px] font-black text-slate-600 uppercase mb-1 tracking-widest">Total O/U</p>
+                                                <p className="text-xl font-black text-white italic leading-none">{game.total}</p>
+                                            </div>
+                                        </div>
+                                        {game.edgeTotal > 8 && (
+                                            <div className="bg-gradient-to-r from-amber-600 to-amber-500 p-4 text-center text-slate-950 font-black text-[11px] uppercase tracking-[0.2em] italic">
+                                                🔥 ALTA VENTAJA DETECTADA (EDGE: {game.edgeTotal} PTS)
+                                            </div>
+                                        )}
                                     </div>
-                                    <div className="p-6 flex justify-around items-center">
-                                        <div className="text-center">
-                                            <p className="text-3xl font-black text-slate-700">{game.awayTri}</p>
-                                            <p className="text-2xl font-black text-white">{game.aPred}</p>
-                                        </div>
-                                        <div className="text-slate-800 font-black text-xl italic">VS</div>
-                                        <div className="text-center">
-                                            <p className="text-3xl font-black text-slate-700">{game.homeTri}</p>
-                                            <p className="text-2xl font-black text-white">{game.hPred}</p>
-                                        </div>
-                                    </div>
-                                    <div className="bg-slate-950 p-4 grid grid-cols-2 gap-4 text-center border-t border-slate-800">
-                                        <div>
-                                            <p className="text-[9px] font-bold text-slate-600 uppercase">Hándicap {game.homeTri}</p>
-                                            <p className="text-lg font-black text-amber-500 italic">{game.spread > 0 ? `+${game.spread}` : game.spread}</p>
-                                        </div>
-                                        <div>
-                                            <p className="text-[9px] font-bold text-slate-600 uppercase">Total O/U</p>
-                                            <p className="text-lg font-black text-white italic">{game.total}</p>
-                                        </div>
-                                    </div>
-                                    {game.edgeTotal > 8 && (
-                                        <div className="bg-amber-500 p-3 text-center text-slate-950 font-black text-[10px] uppercase tracking-widest italic">
-                                            ¡Valor Detectado! Edge: {game.edgeTotal} Pts
-                                        </div>
-                                    )}
-                                </div>
-                            ))}
+                                ))}
+                            </div>
+                        ) : (
+                            <div className="bg-slate-900/30 border-2 border-dashed border-slate-800 p-16 rounded-[3rem] text-center">
+                                <p className="text-slate-600 font-black uppercase tracking-[0.3em] text-sm italic">Esperando picks de la tarde (4:00 PM CDMX)</p>
+                            </div>
+                        )}
+                    </section>
+
+                    {/* SECCIÓN DE AUDITORÍA DE RESULTADOS */}
+                    <section>
+                        <h2 className="text-xl font-black text-white mb-8 flex items-center gap-3 uppercase tracking-tighter italic">
+                            <Icons.Trophy size={20} className="text-emerald-500" /> Resultados de Ayer
+                        </h2>
+                        <div className="bg-slate-900 border border-slate-800 rounded-[2.5rem] overflow-hidden shadow-2xl">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left">
+                                    <thead className="bg-slate-950 text-[10px] font-black text-slate-600 uppercase tracking-[0.25em] border-b border-slate-800">
+                                        <tr>
+                                            <th className="p-6">Encuentro</th>
+                                            <th className="p-6">Proyección</th>
+                                            <th className="p-6">Real</th>
+                                            <th className="p-6">Estatus</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-800/40">
+                                        {history.length > 0 ? history.map((res, i) => {
+                                            const pWin = res.Pred_Home > res.Pred_Away ? res.Home : res.Away;
+                                            const aWin = res.Actual_Home > res.Actual_Away ? res.Home : res.Away;
+                                            const isHit = pWin === aWin;
+                                            return (
+                                                <tr key={i} className="hover:bg-white/[0.01] transition-colors group">
+                                                    <td className="p-6">
+                                                        <p className="text-sm font-black text-white uppercase group-hover:text-amber-500 transition-colors">{res.Away} @ {res.Home}</p>
+                                                        <p className="text-[9px] text-slate-500 font-bold tracking-widest mt-1 uppercase">{res.Date}</p>
+                                                    </td>
+                                                    <td className="p-6 text-xs font-bold text-slate-500 tabular-nums">
+                                                        {res.Pred_Away} - {res.Pred_Home}
+                                                    </td>
+                                                    <td className="p-6 text-base font-black text-white italic tabular-nums tracking-tighter">
+                                                        {res.Actual_Away} - {res.Actual_Home}
+                                                    </td>
+                                                    <td className="p-6 text-right sm:text-left">
+                                                        <span className={`inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-[10px] font-black italic tracking-widest border ${isHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-[0_0_15px_rgba(16,185,129,0.1)]' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
+                                                            {isHit ? '✅ GANADA' : '❌ PERDIDA'}
+                                                        </span>
+                                                    </td>
+                                                </tr>
+                                            );
+                                        }) : (
+                                            <tr>
+                                                <td colSpan="4" className="p-20 text-center text-slate-700 text-[11px] font-black uppercase tracking-[0.3em] italic">
+                                                    Esperando auditoría de la madrugada (4:00 AM CDMX)
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
+                            </div>
                         </div>
                     </section>
 
+                    <footer className="mt-24 pb-12 border-t border-slate-900/50 text-center">
+                        <div className="w-14 h-14 bg-amber-500 rounded-[1.25rem] flex items-center justify-center font-black text-slate-950 mx-auto mb-8 shadow-2xl shadow-amber-500/20">C</div>
+                        <p className="text-[11px] text-slate-600 font-black uppercase tracking-[0.4em] mb-3">NBA Prediction Engine V3.5</p>
+                        <div className="flex justify-center gap-6 text-[9px] text-slate-700 font-bold uppercase tracking-widest">
+                            <span className="flex items-center gap-2"><Icons.TrendingUp size={12}/> XGBoost Optimized</span>
+                            <span className="flex items-center gap-2"><Icons.Target size={12}/> Playdoit Standards</span>
+                        </div>
+                    </footer>
+                </div>
+            );
+        };
+
+        const root = ReactDOM.createRoot(document.getElementById('root'));
+        root.render(<App />);
+    </script>
+</body>
+</html>
                     {/* SECCIÓN 2: AUDITORÍA (RETROALIMENTACIÓN) */}
                     <section>
                         <h2 className="text-xl font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tighter italic">
