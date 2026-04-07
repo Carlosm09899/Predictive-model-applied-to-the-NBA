@@ -36,5 +36,5 @@ jobs:
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
-          git add predictions.json predictions_history.csv
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Actualización de picks y auditoría" && git push)
+          git add predictions.json predictions_history.csv results.json
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Actualización de picks y resultados reales" && git push)
