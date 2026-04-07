@@ -149,7 +149,7 @@ Abre `index.html` en tu navegador. Ya aparecen los picks del día cargados desde
 - [x] Compatibilidad con NBA API v3
 - [ ] Integrar momios reales de casas de apuestas (Fase 3)
 - [ ] Calcular confianza real basada en varianza del modelo
-- [ ] Despliegue automático con GitHub Actions (correr el predictor cada mañana)
+- [x] Despliegue automático con GitHub Actions (correr el predictor cada mañana)
 - [ ] Notificaciones vía Telegram Bot
 
 ---
