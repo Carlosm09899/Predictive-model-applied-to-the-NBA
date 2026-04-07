@@ -2,10 +2,10 @@ name: NBA Oracle Automation
 
 on:
   schedule:
-    # Se ejecuta a las 10:00 AM UTC (aprox 4:00 AM CDMX) para el Backtester
+    # 04:00 AM CDMX (Auditoría de los juegos de ayer)
     - cron: '0 10 * * *'
-    # Se ejecuta a las 10:00 PM UTC (aprox 4:00 PM CDMX) para el Predictor
-    - cron: '0 22 * * *'
+    # 11:00 AM CDMX (Predicciones para los juegos de hoy)
+    - cron: '0 17 * * *'
   workflow_dispatch: 
 
 jobs:
@@ -14,10 +14,10 @@ jobs:
 
     steps:
       - name: Checkout repo content
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4
 
       - name: setup python
-        uses: actions/setup-python@v4
+        uses: actions/setup-python@v5
         with:
           python-version: '3.11'
 
@@ -26,21 +26,21 @@ jobs:
           python -m pip install --upgrade pip
           pip install pandas numpy nba_api joblib scikit-learn xgboost
 
-      - name: Ejecutar Backtester (Auditoría)
+      - name: Ejecutar Auditoría (Backtester)
         run: python nba_backtester.py
 
-      - name: Ejecutar Predictor (Nuevos Picks)
-        run: python nba_predictor.pys
+      - name: Ejecutar Predicciones (Predictor)
+        run: python nba_predictor.py
 
-      - name: Commit and push if changes
+      - name: Commit and push changes
         run: |
           git config --local user.email "action@github.com"
           git config --local user.name "GitHub Action"
           
-          # Agregamos los archivos de uno en uno con "|| true" para que no truene si uno falta
+          # Agregamos los archivos de datos generados
           git add predictions.json || true
           git add predictions_history.csv || true
           git add results.json || true
           
-          # Solo hace commit si detecta cambios reales en los archivos
-          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Actualización de picks y resultados" && git push)
+          # Solo guarda si hay cambios reales para mantener el repo limpio
+          git diff --quiet && git diff --staged --quiet || (git commit -m "Automatización: Sincronización 4AM/11AM CDMX" && git push)
