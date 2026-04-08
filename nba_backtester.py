@@ -6,6 +6,12 @@ from nba_api.stats.endpoints import leaguegamefinder
 from datetime import datetime
 import warnings
 
+HEADERS = {
+    'Host': 'stats.nba.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Referer': 'https://www.nba.com/'
+}
+
 # Silenciamos advertencias para una terminal limpia
 warnings.filterwarnings("ignore")
 
@@ -41,16 +47,16 @@ def audit_my_bets():
     for attempt in range(3):
         try:
             print(f"📡 Conectando con la NBA (Intento {attempt + 1})...")
-            # Timeout de 60 segundos para evitar el error de "Read timed out"
             game_finder = leaguegamefinder.LeagueGameFinder(
                 season_nullable='2025-26', 
-                timeout=60 
+                timeout=60,
+                headers=HEADERS # <--- Agrega esto aquí también
             )
             actual_games = game_finder.get_data_frames()[0]
-            break 
+            break
         except Exception as e:
-            print(f"⚠️ Intento {attempt + 1} falló (NBA ocupada). Reintentando en 5 seg...")
-            time.sleep(5)
+            print(f"⚠️ Error: {e}. Reintentando...")
+            time.sleep(10)
 
     if actual_games is None:
         print("❌ La API de la NBA no respondió después de 3 intentos.")

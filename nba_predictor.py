@@ -2,10 +2,39 @@ import pandas as pd
 import joblib
 import numpy as np
 import json
+import time
 import os
 from datetime import datetime, timedelta
 from nba_api.stats.endpoints import scoreboardv2
 import warnings
+
+HEADERS = {
+    'Host': 'stats.nba.com',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'Accept': 'application/json, text/plain, */*',
+    'Accept-Language': 'en-US,en;q=0.5',
+    'Referer': 'https://www.nba.com/',
+    'Connection': 'keep-alive',
+}
+
+def get_todays_games():
+    print("🏀 PROCESANDO CARTELERA Y EXPORTANDO A LA WEB...")
+    
+    # Intentar 3 veces con paciencia
+    for attempt in range(3):
+        try:
+            print(f"📡 Conectando con la NBA (Intento {attempt + 1})...")
+            sb = scoreboardv2.ScoreboardV2(
+                league_id='00', 
+                timeout=60, 
+                headers=HEADERS # <--- Aquí está el truco
+            )
+            return sb.get_data_frames()[1]
+        except Exception as e:
+            print(f"⚠️ Intento {attempt + 1} falló. Reintentando en 10 seg...")
+            time.sleep(10)
+    
+    return None
 
 # Silenciamos advertencias para una terminal y logs limpios
 warnings.filterwarnings("ignore")
