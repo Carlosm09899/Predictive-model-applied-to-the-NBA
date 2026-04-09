@@ -49,17 +49,18 @@
 
             useEffect(() => {
                 const loadData = async () => {
-                    const v = new Date().getTime(); // Cache busting para evitar datos viejos
+                    // Cache busting para forzar descarga de archivos nuevos
+                    const version = new Date().getTime(); 
                     try {
                         const [pRes, hRes] = await Promise.allSettled([
-                            fetch(`predictions.json?v=${v}`).then(r => r.ok ? r.json() : []),
-                            fetch(`results.json?v=${v}`).then(r => r.ok ? r.json() : [])
+                            fetch(`predictions.json?v=${version}`).then(r => r.ok ? r.json() : []),
+                            fetch(`results.json?v=${version}`).then(r => r.ok ? r.json() : [])
                         ]);
                         
                         if (pRes.status === 'fulfilled') setPredictions(pRes.value);
                         if (hRes.status === 'fulfilled') setHistory(hRes.value);
                     } catch (e) { 
-                        console.error("Error sincronizando datos:", e); 
+                        console.error("Error cargando archivos:", e); 
                     } finally {
                         setLoading(false);
                     }
@@ -69,7 +70,6 @@
 
             // Cálculo dinámico de Efectividad (Win Rate)
             const stats = useMemo(() => {
-                // Si no hay historial, no mostramos 0%, mostramos un guión o esperamos
                 if (!Array.isArray(history) || history.length === 0) return "--";
                 const hits = history.filter(r => {
                     if (r.Actual_Home === undefined || r.Actual_Away === undefined) return false;
@@ -81,13 +81,13 @@
             if (loading) return (
                 <div className="h-screen flex flex-col items-center justify-center bg-[#020617]">
                     <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse">Sincronizando Inteligencia...</p>
+                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse italic">Sincronizando Oráculo...</p>
                 </div>
             );
 
             return (
                 <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-10">
-                    {/* HEADER PROFESIONAL */}
+                    {/* ENCABEZADO */}
                     <header className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
                         <div className="text-center md:text-left">
                             <h1 className="text-5xl font-black italic tracking-tighter text-white uppercase leading-none">ORÁCULO<span className="text-amber-500 text-6xl">NBA</span></h1>
@@ -96,41 +96,35 @@
                         <div className="flex gap-4 items-center bg-slate-900/80 border border-slate-800 p-6 rounded-[2rem] shadow-2xl">
                             <div className="text-right">
                                 <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Efectividad Global</p>
-                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">{stats}{typeof stats === 'number' ? '%' : ''} WR</p>
+                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">
+                                    {stats}{typeof stats === 'number' ? '%' : ''} WR
+                                </p>
                             </div>
-                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg shadow-amber-500/20 transition-transform hover:scale-105 cursor-default">C</div>
+                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg transition-transform hover:scale-105">C</div>
                         </div>
                     </header>
 
-                    {/* SECCIÓN 1: CARTELERA Y PICKS */}
+                    {/* CARTELERA ACTIVA */}
                     <section className="mb-24">
-                        <div className="flex justify-between items-end mb-8">
-                            <h2 className="text-xl font-black text-white uppercase italic flex items-center gap-3">
-                                <span className="text-amber-500 text-2xl">⚡</span> Picks para Hoy
-                            </h2>
-                            {predictions && predictions.length > 0 && (
-                                <span className="text-[10px] font-black text-slate-500 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 uppercase tracking-widest">
-                                    {predictions.length} Juegos Activos
-                                </span>
-                            )}
-                        </div>
-
-                        {predictions && predictions.length > 0 ? (
+                        <h2 className="text-xl font-black text-white uppercase italic flex items-center gap-3 mb-8">
+                            <span className="text-amber-500 text-2xl">⚡</span> Picks para Hoy
+                        </h2>
+                        {predictions.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                 {predictions.map((g, i) => (
                                     <div key={i} className={`glass-card rounded-[3rem] overflow-hidden flex flex-col shadow-2xl ${g.edge > 7 ? 'ring-2 ring-amber-500/30' : ''}`}>
                                         <div className="px-8 py-4 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50 text-[10px] font-black uppercase">
-                                            <span className="text-slate-500">{g.time} (MX)</span>
+                                            <span className="text-slate-500">{g.time}</span>
                                             <span className="text-amber-500 italic">{g.confidence}% Confianza</span>
                                         </div>
                                         <div className="p-10 flex justify-around items-center">
                                             <div className="text-center w-28">
-                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 tracking-tighter leading-none">{g.away}</p>
+                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 leading-none">{g.away}</p>
                                                 <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.aPred}</p>
                                             </div>
                                             <div className="text-slate-800 font-black text-2xl italic opacity-20">VS</div>
                                             <div className="text-center w-28">
-                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 tracking-tighter leading-none">{g.home}</p>
+                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 leading-none">{g.home}</p>
                                                 <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.hPred}</p>
                                             </div>
                                         </div>
@@ -145,41 +139,33 @@
                                                     <p className="text-xl font-black text-white italic leading-none">{g.spread > 0 ? `+${g.spread}` : g.spread}</p>
                                                 </div>
                                                 <div>
-                                                    <p className="text-[9px] text-slate-600 font-black uppercase mb-1 leading-none tracking-tighter">Edge Value</p>
+                                                    <p className="text-[9px] text-slate-600 font-black uppercase mb-1 leading-none tracking-tighter">Edge</p>
                                                     <p className="text-xl font-black text-amber-500 italic leading-none">+{g.edge}</p>
                                                 </div>
                                             </div>
-                                            <div className="bet-btn p-5 rounded-2xl text-center shadow-lg transform transition-all active:scale-95 cursor-pointer">
-                                                <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter">Pronóstico Recomendado</p>
-                                                <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none uppercase">APOSTAR A: {g.pick}</p>
+                                            <div className="bet-btn p-5 rounded-2xl text-center shadow-lg">
+                                                <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter">Pick Recomendado</p>
+                                                <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none">APOSTAR A: {g.pick}</p>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
                             </div>
                         ) : (
-                            <div className="col-span-full bg-slate-900/20 border-2 border-dashed border-slate-800 p-20 rounded-[3rem] text-center max-w-2xl mx-auto shadow-inner">
+                            <div className="bg-slate-900/20 border-2 border-dashed border-slate-800 p-20 rounded-[3rem] text-center max-w-2xl mx-auto shadow-inner">
                                 <p className="text-amber-500 font-black uppercase tracking-[0.2em] text-sm italic mb-2">Cartelera Finalizada</p>
-                                <p className="text-slate-500 font-medium text-xs leading-relaxed italic">
-                                    Todos los juegos de hoy han terminado o están en curso.<br />
-                                    Vuelve a las 11:00 PM para los picks de mañana.
-                                </p>
+                                <p className="text-slate-500 font-medium text-xs">Esperando nuevos juegos o actualización de servidor...</p>
                             </div>
                         )}
                     </section>
 
-                    {/* SECCIÓN 2: AUDITORÍA COMPARATIVA */}
+                    {/* SECCIÓN DE AUDITORÍA (Aquí es donde corregimos el fallo) */}
                     <section className="max-w-6xl mx-auto">
                         <div className="flex justify-between items-end mb-8">
                             <h2 className="text-xl font-black text-white uppercase italic flex items-center gap-3">
                                 <span className="text-emerald-500 text-2xl">📊</span> Auditoría: Predicción vs Real
                             </h2>
-                            <button 
-                                onClick={() => window.location.reload()}
-                                className="text-[10px] font-black text-emerald-500 hover:text-emerald-400 uppercase tracking-widest transition-colors"
-                            >
-                                [ Forzar Actualización ]
-                            </button>
+                            <button onClick={() => window.location.reload()} className="text-[10px] font-black text-emerald-500 hover:text-emerald-400 uppercase tracking-widest">[ Refrescar ]</button>
                         </div>
                         <div className="glass-card rounded-[3rem] overflow-hidden shadow-2xl">
                             <div className="overflow-x-auto">
@@ -225,9 +211,7 @@
                                                 <td colSpan="4" className="p-24 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">
                                                     <div className="flex flex-col items-center gap-3">
                                                         <span>Sincronizando resultados oficiales...</span>
-                                                        <p className="normal-case font-normal text-slate-500 text-[10px]">
-                                                            Los resultados de hoy se procesan automáticamente después de medianoche.
-                                                        </p>
+                                                        <p className="normal-case font-normal text-slate-500 text-[10px]">Si el workflow ya terminó, intenta refrescar la página.</p>
                                                     </div>
                                                 </td>
                                             </tr>
