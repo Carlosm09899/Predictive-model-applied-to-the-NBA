@@ -278,15 +278,15 @@
                                         </span>
                                     )}
                                 </h2>
-
-                                <div className="glass-card rounded-3xl overflow-hidden">
+<div className="glass-card rounded-3xl overflow-hidden">
                                     <div className="overflow-x-auto">
                                         <table className="w-full text-left">
                                             <thead className="bg-slate-950 text-[8px] font-black text-slate-600 uppercase tracking-widest border-b border-slate-800">
                                                 <tr>
                                                     <th className="px-4 py-3">Juego</th>
-                                                    <th className="px-4 py-3">Real</th>
-                                                    <th className="px-4 py-3 text-right">Resultado</th>
+                                                    <th className="px-3 py-3">Pred.</th>
+                                                    <th className="px-3 py-3">Real</th>
+                                                    <th className="px-3 py-3 text-right">Resultado</th>
                                                 </tr>
                                             </thead>
                                             <tbody className="divide-y divide-slate-800/40">
@@ -301,12 +301,23 @@
                                                                 <p className="text-[11px] font-black text-white uppercase leading-tight">{tn(res.Away)} @ {tn(res.Home)}</p>
                                                                 <p className="text-[8px] text-slate-600 font-bold uppercase mt-0.5">{res.Date}</p>
                                                             </td>
-                                                            <td className="px-4 py-3 text-xs font-black text-white italic tabular-nums">
-                                                                {hasFinal ? `${res.Actual_Away}-${res.Actual_Home}` : (
+                                                            {/* Predicción del Oráculo */}
+                                                            <td className="px-3 py-3">
+                                                                <p className="text-[10px] font-black text-amber-500/80 italic tabular-nums">
+                                                                    {res.Pred_Away}-{res.Pred_Home}
+                                                                </p>
+                                                            </td>
+                                                            {/* Resultado Real */}
+                                                            <td className="px-3 py-3">
+                                                                {hasFinal ? (
+                                                                    <p className="text-[10px] font-black text-white italic tabular-nums">
+                                                                        {res.Actual_Away}-{res.Actual_Home}
+                                                                    </p>
+                                                                ) : (
                                                                     <span className="text-slate-600 text-[8px]">Pendiente</span>
                                                                 )}
                                                             </td>
-                                                            <td className="px-4 py-3 text-right">
+                                                            <td className="px-3 py-3 text-right">
                                                                 {hasFinal ? (
                                                                     <span className={`px-2 py-0.5 rounded text-[8px] font-black italic tracking-wider ${isHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
                                                                         {isHit ? '✅ HIT' : '❌ MISS'}
