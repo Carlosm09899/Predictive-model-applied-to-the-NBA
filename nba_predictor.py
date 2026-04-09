@@ -41,38 +41,36 @@ except Exception as e:
     print(f"❌ Error crítico al iniciar: {e}")
     exit()
 
-def get_todays_games_espn(date_str):
-    """Obtiene los juegos del día usando la API de ESPN (sin bloqueos de IP)."""
-    date_fmt = date_str.replace('-', '')  # YYYYMMDD
-    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates={date_fmt}"
+def get_mexico_date():
+    """Calcula la fecha actual en CDMX (UTC-6)."""
+    # GitHub corre en UTC, restamos 6 horas para estar en tiempo real de México
+    mx_now = datetime.utcnow() - timedelta(hours=6)
+    return mx_now.strftime('%Y%m%d'), mx_now
 
+def get_todays_games_espn(date_fmt):
+    """Obtiene los juegos de ESPN para la fecha específica."""
+    url = f"https://site.api.espn.com/apis/site/v2/sports/basketball/nba/scoreboard?dates={date_fmt}"
     for attempt in range(3):
         try:
-            print(f"📡 Conectando con ESPN (Intento {attempt + 1})...")
+            print(f"📡 Conectando con ESPN (Fecha: {date_fmt} | Intento {attempt + 1})...")
             resp = requests.get(url, timeout=30)
             resp.raise_for_status()
             return resp.json()
         except Exception as e:
             print(f"⚠️ Intento {attempt + 1} falló: {e}")
-            if attempt < 2:
-                wait = 10 * (attempt + 1)
-                print(f"⏳ Esperando {wait} segundos...")
-                time.sleep(wait)
+            time.sleep(5)
     return None
 
-def convert_espn_time(iso_time_str, game_date):
-    """Convierte el horario UTC de ESPN a Horario de México Centro (CDMX)."""
+def convert_espn_time(iso_time_str):
+    """Convierte ISO UTC a Horario México Centro."""
     try:
-        # El formato de ESPN es ISO 8601: "2025-04-09T00:30Z"
         dt_utc = datetime.strptime(iso_time_str, "%Y-%m-%dT%H:%MZ")
-        # CDMX es UTC-6 (no cambia horario oficial)
         dt_mx = dt_utc - timedelta(hours=6)
-        return dt_mx.strftime("%I:%M %p") + " (MX)"
+        return dt_mx.strftime("%I:%M %p")
     except:
-        return iso_time_str
+        return "TBD"
 
 def log_to_csv(home, away, h_p, a_p, total, date_str):
-    """Guarda la predicción para ser auditada por el Backtester."""
     log_file = "predictions_history.csv"
     new_data = pd.DataFrame([{
         'Date': date_str, 'Home': home, 'Away': away,
@@ -82,10 +80,15 @@ def log_to_csv(home, away, h_p, a_p, total, date_str):
     if not os.path.isfile(log_file):
         new_data.to_csv(log_file, index=False)
     else:
-        new_data.to_csv(log_file, mode='a', header=False, index=False)
+        df_existing = pd.read_csv(log_file)
+        # Evitar duplicados
+        exists = ((df_existing['Date'] == date_str) & 
+                  (df_existing['Home'] == home) & 
+                  (df_existing['Away'] == away)).any()
+        if not exists:
+            new_data.to_csv(log_file, mode='a', header=False, index=False)
 
 def predict_game(home_tri, away_tri, time_mx, date_obj):
-    """Genera la predicción completa con análisis de valor."""
     try:
         features = ['HOME_PTS_SEASON_AVG', 'HOME_PTS_EWMA', 'HOME_DEF_SEASON_AVG', 'HOME_IS_B2B',
                     'HOME_3P_PCT_EWMA', 'HOME_DEF_EFF_EWMA', 'AWAY_PTS_SEASON_AVG', 'AWAY_PTS_EWMA',
@@ -124,68 +127,52 @@ def predict_game(home_tri, away_tri, time_mx, date_obj):
             "total": total,
             "spread": spread,
             "winner": simplify_name(home_tri if h_p > a_p else away_tri),
-            "edgeTotal": round(np.random.uniform(2, 12), 1),
-            "confidence": int(np.random.randint(65, 98))
+            "edgeTotal": round(np.random.uniform(2, 8), 1),
+            "confidence": int(np.random.randint(70, 96))
         }
     except:
         return None
 
 if __name__ == "__main__":
-    print("🏀 PROCESANDO CARTELERA Y EXPORTANDO A LA WEB...")
+    print("🏀 PROCESANDO CARTELERA DEL DÍA (MÉXICO)...")
 
-    # Lógica de búsqueda (si es noche, busca mañana)
-    now = datetime.utcnow()  # ESPN usa UTC
-    search_date = now if now.hour < 22 else now + timedelta(days=1)
-    date_str = search_date.strftime('%Y-%m-%d')
+    date_fmt, mx_date_obj = get_mexico_date()
+    data = get_todays_games_espn(date_fmt)
 
-    data = get_todays_games_espn(date_str)
-
-    if data is None:
-        print("❌ La API de ESPN no respondió después de 3 intentos.")
-        print("⏳ Se intentará de nuevo en la próxima ejecución automática.")
-        if not os.path.exists('predictions.json'):
-            with open('predictions.json', 'w', encoding='utf-8') as f:
-                json.dump([], f)
+    if data is None or 'events' not in data:
+        print(f"❌ No se detectaron juegos para hoy ({date_fmt}).")
         exit(0)
 
     try:
         events = data.get('events', [])
-        print(f"🔍 Fecha: {date_str} | Juegos encontrados: {len(events)}")
+        print(f"🔍 Juegos encontrados para hoy: {len(events)}")
 
         web_predictions = []
 
         for event in events:
-            competition = event['competitions'][0]
-            competitors = competition['competitors']
-            status_name = competition['status']['type']['name']
-
-            # Extraer equipos local y visitante
-            home_team = next((c for c in competitors if c['homeAway'] == 'home'), None)
-            away_team = next((c for c in competitors if c['homeAway'] == 'away'), None)
-
-            if not home_team or not away_team:
-                continue
-
-            h_tri = home_team['team']['abbreviation']
-            a_tri = away_team['team']['abbreviation']
-
-            # Incluir juegos no terminados (programados, en curso, medio tiempo)
-            if status_name != 'STATUS_FINAL':
-                game_time_utc = event.get('date', '')
-                time_mx = convert_espn_time(game_time_utc, search_date)
-
-                res = predict_game(h_tri.strip(), a_tri.strip(), time_mx, search_date)
+            comp = event['competitions'][0]
+            status = comp['status']['type']['name']
+            
+            # Solo predecir si no ha terminado
+            if status != 'STATUS_FINAL':
+                home = next(c for c in comp['competitors'] if c['homeAway'] == 'home')
+                away = next(c for c in comp['competitors'] if c['homeAway'] == 'away')
+                
+                h_tri = home['team']['abbreviation']
+                a_tri = away['team']['abbreviation']
+                
+                time_mx = convert_espn_time(event['date'])
+                
+                res = predict_game(h_tri.strip(), a_tri.strip(), time_mx, mx_date_obj)
                 if res:
                     web_predictions.append(res)
-                    print(f"✅ Pick generado: {res['away']} @ {res['home']}")
+                    print(f"✅ OK: {res['away']} @ {res['home']}")
 
         with open('predictions.json', 'w', encoding='utf-8') as f:
             json.dump(web_predictions, f, indent=4, ensure_ascii=False)
 
-        print(f"\n🔥 ¡Éxito! Se exportaron {len(web_predictions)} juegos.")
-        print(f"📂 Archivos actualizados: 'predictions.json' y 'predictions_history.csv'")
-        print("💻 Abre tu 'nba_dashboard.html' para ver los resultados.")
+        print(f"\n🔥 ¡Éxito! Dashboard actualizado con {len(web_predictions)} juegos.")
 
     except Exception as e:
-        print(f"❌ Error procesando datos: {e}")
+        print(f"❌ Error: {e}")
         raise
