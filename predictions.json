@@ -1,1 +1,80 @@
-[]
+[
+    {
+        "home": "Raptors",
+        "away": "Heat",
+        "hPred": 118.1,
+        "aPred": 112.2,
+        "total": 230.3,
+        "spread": -5.9,
+        "edge": 8.5,
+        "pick": "Raptors",
+        "totalType": "OVER",
+        "confidence": 75,
+        "time": "05:00 PM"
+    },
+    {
+        "home": "WSH",
+        "away": "Bulls",
+        "hPred": 115.1,
+        "aPred": 110.4,
+        "total": 225.5,
+        "spread": -4.7,
+        "edge": 9.0,
+        "pick": "WSH",
+        "totalType": "UNDER",
+        "confidence": 91,
+        "time": "05:00 PM"
+    },
+    {
+        "home": "Nets",
+        "away": "Pacers",
+        "hPred": 114.0,
+        "aPred": 102.8,
+        "total": 216.8,
+        "spread": -11.2,
+        "edge": 8.6,
+        "pick": "Nets",
+        "totalType": "UNDER",
+        "confidence": 94,
+        "time": "05:30 PM"
+    },
+    {
+        "home": "NY",
+        "away": "Celtics",
+        "hPred": 105.1,
+        "aPred": 111.6,
+        "total": 216.7,
+        "spread": 6.5,
+        "edge": 8.5,
+        "pick": "Celtics",
+        "totalType": "UNDER",
+        "confidence": 85,
+        "time": "05:30 PM"
+    },
+    {
+        "home": "Rockets",
+        "away": "76ers",
+        "hPred": 128.0,
+        "aPred": 107.6,
+        "total": 235.6,
+        "spread": -20.4,
+        "edge": 6.3,
+        "pick": "Rockets",
+        "totalType": "OVER",
+        "confidence": 93,
+        "time": "06:00 PM"
+    },
+    {
+        "home": "GS",
+        "away": "Lakers",
+        "hPred": 117.6,
+        "aPred": 107.1,
+        "total": 224.7,
+        "spread": -10.5,
+        "edge": 3.9,
+        "pick": "GS",
+        "totalType": "UNDER",
+        "confidence": 75,
+        "time": "08:00 PM"
+    }
+]
