@@ -11,8 +11,8 @@
         "total": 241.0,
         "spread": 11.2,
         "winner": "Raptors",
-        "edgeTotal": 10.5,
-        "confidence": 92
+        "edgeTotal": 2.4,
+        "confidence": 81
     },
     {
         "id": "BKN_20260409",
@@ -26,8 +26,8 @@
         "total": 229.1,
         "spread": -2.1,
         "winner": "Pacers",
-        "edgeTotal": 5.7,
-        "confidence": 91
+        "edgeTotal": 8.7,
+        "confidence": 92
     },
     {
         "id": "HOU_20260409",
@@ -41,7 +41,7 @@
         "total": 233.0,
         "spread": 6.4,
         "winner": "Rockets",
-        "edgeTotal": 10.5,
-        "confidence": 75
+        "edgeTotal": 4.2,
+        "confidence": 76
     }
 ]
