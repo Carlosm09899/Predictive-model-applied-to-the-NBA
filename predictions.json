@@ -11,8 +11,8 @@
         "total": 234.2,
         "spread": 9.6,
         "winner": "Nuggets",
-        "edgeTotal": 7.1,
-        "confidence": 70
+        "edgeTotal": 4.0,
+        "confidence": 93
     },
     {
         "id": "LAC_20260408",
@@ -26,8 +26,8 @@
         "total": 225.0,
         "spread": -2.8,
         "winner": "Thunder",
-        "edgeTotal": 2.3,
-        "confidence": 74
+        "edgeTotal": 6.6,
+        "confidence": 77
     },
     {
         "id": "PHX_20260408",
@@ -41,7 +41,7 @@
         "total": 236.5,
         "spread": 10.9,
         "winner": "Suns",
-        "edgeTotal": 2.1,
-        "confidence": 92
+        "edgeTotal": 4.4,
+        "confidence": 72
     }
 ]
