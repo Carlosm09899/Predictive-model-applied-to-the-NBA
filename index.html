@@ -3,61 +3,28 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Oráculo NBA - Carlos Edition</title>
-    <meta name="description" content="Sistema de predicción NBA con Machine Learning. Picks diarios, auditoría de resultados y análisis de handicap.">
+    <title>El Oráculo NBA - Carlos Pro</title>
+    <!-- Motores de Diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
     <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap');
-        * { box-sizing: border-box; }
-        body {
-            font-family: 'Inter', sans-serif;
-            background-color: #020617;
-            color: #e2e8f0;
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;700;900&display=swap');
+        body { 
+            font-family: 'Inter', sans-serif; 
+            background-color: #020617; 
             margin: 0;
-            min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
         }
         .glass-card {
             background: rgba(15, 23, 42, 0.6);
-            backdrop-filter: blur(12px);
-            border: 1px solid rgba(51, 65, 85, 0.5);
-        }
-        .glow-amber { box-shadow: 0 0 30px rgba(245, 158, 11, 0.08); }
-        /* Animación de entrada para las cards */
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(18px); }
-            to   { opacity: 1; transform: translateY(0); }
-        }
-        .card-anim { animation: fadeInUp 0.4s ease both; }
-        .card-anim:nth-child(1) { animation-delay: 0.05s; }
-        .card-anim:nth-child(2) { animation-delay: 0.12s; }
-        .card-anim:nth-child(3) { animation-delay: 0.19s; }
-        .card-anim:nth-child(4) { animation-delay: 0.26s; }
-        .card-anim:nth-child(5) { animation-delay: 0.33s; }
-        .card-anim:nth-child(6) { animation-delay: 0.40s; }
-        /* Barra decorativa del fondo */
-        .bg-grid {
-            background-image:
-                linear-gradient(rgba(245,158,11,0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(245,158,11,0.03) 1px, transparent 1px);
-            background-size: 40px 40px;
+            backdrop-filter: blur(16px);
+            border: 1px solid rgba(51, 65, 85, 0.4);
         }
     </style>
-    <script>
-        tailwind.config = {
-            theme: {
-                extend: {
-                    screens: {
-                        'xs': '480px',
-                    }
-                }
-            }
-        }
-    </script>
 </head>
-<body class="bg-grid">
+<body class="text-slate-200">
     <div id="root"></div>
 
     <script type="text/babel">
@@ -65,296 +32,165 @@
 
         const Icons = {
             Trophy: ({className}) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"/><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"/><path d="M4 22h16"/><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"/><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"/><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"/></svg>
             ),
-            Zap: ({size=16, fill="none", className}) => (
+            Zap: ({ size = 18, fill = "none", className }) => (
                 <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
             ),
-            Activity: ({className}) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
+            Target: ({size = 18}) => (
+                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             )
         };
 
-        /* ── Tarjeta de juego ── */
-        const GameCard = ({ game, index }) => {
-            const isEdge = game.edgeTotal > 8;
-            return (
-                <div
-                    className={`card-anim glass-card rounded-3xl overflow-hidden transition-all duration-300 hover:scale-[1.015] hover:border-slate-600 ${isEdge ? 'ring-1 ring-amber-500/40 glow-amber' : ''}`}
-                    style={{ animationDelay: `${index * 0.07}s` }}
-                >
-                    {/* Cabecera */}
-                    <div className="px-5 py-3 flex justify-between items-center bg-slate-950/50 border-b border-slate-800/60">
-                        <div className="flex items-center gap-2">
-                            {isEdge && <span className="w-1.5 h-1.5 rounded-full bg-amber-500 animate-pulse"></span>}
-                            <span className="text-[10px] font-bold text-slate-500 uppercase tracking-wider">{game.time}</span>
-                        </div>
-                        <div className="flex items-center gap-1.5">
-                            <div className="h-1 w-12 rounded-full bg-slate-800 overflow-hidden">
-                                <div className="h-full rounded-full bg-amber-500" style={{width: `${game.confidence}%`}}></div>
-                            </div>
-                            <span className="text-[10px] font-black text-amber-500 italic">{game.confidence}% Conf.</span>
-                        </div>
-                    </div>
-
-                    {/* Cuerpo — equipos y marcador */}
-                    <div className="p-5 sm:p-6 flex items-center justify-between gap-3">
-                        {/* Visitante */}
-                        <div className="text-center flex-1 min-w-0">
-                            <p className="text-base sm:text-xl font-black text-slate-400 leading-none mb-1.5 uppercase tracking-tight truncate">{game.away}</p>
-                            <p className="text-2xl sm:text-3xl font-black text-white leading-none">{game.aPred}</p>
-                        </div>
-
-                        {/* VS */}
-                        <div className="flex flex-col items-center gap-1 flex-shrink-0 px-2">
-                            <span className="text-slate-700 font-black text-sm sm:text-base italic">VS</span>
-                            <span className="text-[8px] text-slate-600 font-bold uppercase tracking-widest">@ {game.homeTri}</span>
-                        </div>
-
-                        {/* Local */}
-                        <div className="text-center flex-1 min-w-0">
-                            <p className="text-base sm:text-xl font-black text-slate-400 leading-none mb-1.5 uppercase tracking-tight truncate">{game.home}</p>
-                            <p className="text-2xl sm:text-3xl font-black text-white leading-none">{game.hPred}</p>
-                        </div>
-                    </div>
-
-                    {/* Pie — Hándicap y Total */}
-                    <div className="bg-slate-950/60 px-5 py-3.5 grid grid-cols-2 gap-4 text-center border-t border-slate-800/50">
-                        <div>
-                            <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest leading-none">Hándicap {game.home}</p>
-                            <p className="text-sm sm:text-base font-black text-amber-500 italic leading-none">
-                                {game.spread > 0 ? `+${game.spread}` : game.spread}
-                            </p>
-                        </div>
-                        <div>
-                            <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest leading-none">Total O/U</p>
-                            <p className="text-sm sm:text-base font-black text-white italic leading-none">{game.total}</p>
-                        </div>
-                    </div>
-                </div>
-            );
-        };
-
-        /* ── Diccionario de nombres de equipos ── */
-        const TEAM_NAMES = {
-            'ATL': 'Hawks',    'BOS': 'Celtics',  'BKN': 'Nets',      'CHA': 'Hornets',
-            'CHI': 'Bulls',    'CLE': 'Cavaliers','DAL': 'Mavericks', 'DEN': 'Nuggets',
-            'DET': 'Pistons',  'GSW': 'Warriors', 'HOU': 'Rockets',   'IND': 'Pacers',
-            'LAC': 'Clippers', 'LAL': 'Lakers',   'MEM': 'Grizzlies', 'MIA': 'Heat',
-            'MIL': 'Bucks',    'MIN': 'Timberwolves', 'NOP': 'Pelicans', 'NYK': 'Knicks',
-            'OKC': 'Thunder',  'ORL': 'Magic',    'PHI': '76ers',     'PHX': 'Suns',
-            'POR': 'Trail Blazers', 'SAC': 'Kings', 'SAS': 'Spurs',   'TOR': 'Raptors',
-            'UTA': 'Jazz',     'WAS': 'Wizards'
-        };
-        const tn = (tri) => TEAM_NAMES[tri] || tri;
-
-        /* ── App Principal ── */
         const App = () => {
             const [predictions, setPredictions] = useState([]);
             const [history, setHistory] = useState([]);
             const [loading, setLoading] = useState(true);
-            const [activeTab, setActiveTab] = useState('picks');
 
             useEffect(() => {
                 const loadData = async () => {
+                    const version = new Date().getTime(); // Cache busting
                     try {
                         const [pRes, hRes] = await Promise.allSettled([
-                            fetch('predictions.json').then(r => r.json()),
-                            fetch('results.json').then(r => r.json())
+                            fetch(`predictions.json?v=${version}`).then(r => r.json()),
+                            fetch(`results.json?v=${version}`).then(r => r.json())
                         ]);
                         if (pRes.status === 'fulfilled') setPredictions(pRes.value);
                         if (hRes.status === 'fulfilled') setHistory(hRes.value);
-                    } catch(e) {
-                        console.error("Esperando datos...", e);
-                    }
+                    } catch (e) { console.error(e); }
                     setLoading(false);
                 };
                 loadData();
             }, []);
 
-            // Estadísticas de la auditoría
-            const audited = history.filter(r => r.Actual_Home != null);
-            const hits = audited.filter(r => {
-                const pWin = r.Pred_Home > r.Pred_Away ? r.Home : r.Away;
-                const aWin = r.Actual_Home > r.Actual_Away ? r.Home : r.Away;
-                return pWin === aWin;
-            }).length;
-            const pct = audited.length > 0 ? Math.round((hits / audited.length) * 100) : 0;
-
             if (loading) return (
                 <div className="flex h-screen flex-col items-center justify-center space-y-4">
                     <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-amber-500 font-black text-[10px] uppercase tracking-[0.3em]">Sincronizando Oráculo...</p>
+                    <p className="text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] animate-pulse">Sincronizando Inteligencia...</p>
                 </div>
             );
 
             return (
-                <div className="min-h-screen">
-                    {/* ── HEADER ── */}
-                    <header className="sticky top-0 z-10 bg-slate-950/80 backdrop-blur-md border-b border-slate-800/60">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-3 flex justify-between items-center">
-                            <div>
-                                <h1 className="text-xl sm:text-2xl font-black italic tracking-tighter text-white leading-none">
-                                    ORÁCULO<span className="text-amber-500">NBA</span>
-                                </h1>
-                                <p className="text-slate-500 text-[8px] font-black uppercase tracking-widest leading-none mt-0.5">Carlos Intelligence Unit</p>
-                            </div>
-                            <div className="flex items-center gap-3">
-                                {audited.length > 0 && (
-                                    <div className="hidden sm:flex items-center gap-1.5 bg-slate-900 border border-slate-800 rounded-xl px-3 py-1.5">
-                                        <Icons.Activity className="text-emerald-400" />
-                                        <span className="text-xs font-black text-emerald-400">{pct}% WR</span>
-                                        <span className="text-[9px] text-slate-600 font-bold">({hits}/{audited.length})</span>
-                                    </div>
-                                )}
-                                <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-center">
-                                    <p className="text-[8px] text-slate-500 font-black uppercase leading-none mb-0.5">Status</p>
-                                    <p className="text-xs font-black text-emerald-400">ONLINE</p>
-                                </div>
-                            </div>
+                <div className="max-w-md mx-auto p-5 pb-20">
+                    <header className="flex justify-between items-center mb-10 pt-4">
+                        <div>
+                            <h1 className="text-3xl font-black italic tracking-tighter text-white">ORÁCULO<span className="text-amber-500">NBA</span></h1>
+                            <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Carlos Intelligence Unit • V3.5</p>
+                        </div>
+                        <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-center shadow-lg">
+                            <p className="text-[8px] text-slate-500 font-black uppercase mb-0.5">Accurate ML</p>
+                            <p className="text-sm font-black text-emerald-400">ONLINE</p>
                         </div>
                     </header>
 
-                    {/* ── TABS (móvil) ── */}
-                    <div className="lg:hidden border-b border-slate-800/60 bg-slate-950/40">
-                        <div className="max-w-6xl mx-auto px-4 flex">
-                            <button
-                                onClick={() => setActiveTab('picks')}
-                                className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'picks' ? 'text-amber-500 border-b-2 border-amber-500' : 'text-slate-600'}`}
-                            >
-                                ⚡ Picks de Hoy
-                            </button>
-                            <button
-                                onClick={() => setActiveTab('history')}
-                                className={`flex-1 py-3 text-[10px] font-black uppercase tracking-widest transition-all ${activeTab === 'history' ? 'text-emerald-400 border-b-2 border-emerald-400' : 'text-slate-600'}`}
-                            >
-                                🏆 Auditoría
-                            </button>
-                        </div>
-                    </div>
-
-                    {/* ── CONTENIDO PRINCIPAL ── */}
-                    <main className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8">
-                        {/* Layout en dos columnas para desktop, una para móvil */}
-                        <div className="lg:grid lg:grid-cols-5 lg:gap-8">
-
-                            {/* ── COLUMNA IZQUIERDA: PICKS ── */}
-                            <div className={`lg:col-span-3 ${activeTab === 'history' ? 'hidden lg:block' : 'block'}`}>
-                                <h2 className="text-sm font-black text-white mb-5 flex items-center gap-2 uppercase tracking-tight italic">
-                                    <Icons.Zap size={16} className="text-amber-500" fill="currentColor"/>
-                                    Picks de Hoy
-                                    {predictions.length > 0 && (
-                                        <span className="ml-auto text-[9px] font-black text-slate-600 normal-case italic not-italic">
-                                            {predictions.length} juego{predictions.length !== 1 ? 's' : ''}
-                                        </span>
-                                    )}
-                                </h2>
-
-                                {predictions.length > 0 ? (
-                                    /* Grid: 1 col en móvil, 2 en pantallas sm+ (dentro del lg:col-span-3) */
-                                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 xl:grid-cols-2 gap-4">
-                                        {predictions.map((game, i) => (
-                                            <GameCard key={i} game={game} index={i} />
-                                        ))}
+                    {/* SECCIÓN 1: CARTELERA ACTIVA */}
+                    <section className="mb-14">
+                        <h2 className="text-sm font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tight italic">
+                            <Icons.Zap size={16} className="text-amber-500" fill="currentColor"/> Cartelera para Hoy
+                        </h2>
+                        {predictions.length > 0 ? (
+                            <div className="space-y-6">
+                                {predictions.map((game, i) => (
+                                    <div key={i} className={`glass-card rounded-[2.5rem] overflow-hidden ${game.edgeTotal > 8 ? 'ring-1 ring-amber-500/50' : ''}`}>
+                                        <div className="px-5 py-3 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50 text-[9px] font-black uppercase">
+                                            <span className="text-slate-500">{game.time}</span>
+                                            <span className="text-amber-500 italic">{game.confidence}% Conf.</span>
+                                        </div>
+                                        <div className="p-8 flex justify-around items-center">
+                                            <div className="text-center w-24">
+                                                <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-2">{game.awayTri}</p>
+                                                <p className="text-2xl font-black text-white tracking-tighter">{game.aPred}</p>
+                                            </div>
+                                            <div className="text-slate-800 font-black text-xl italic tracking-tighter">VS</div>
+                                            <div className="text-center w-24">
+                                                <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-2">{game.homeTri}</p>
+                                                <p className="text-2xl font-black text-white tracking-tighter">{game.hPred}</p>
+                                            </div>
+                                        </div>
+                                        <div className="bg-slate-950/60 px-5 py-4 grid grid-cols-2 gap-4 text-center border-t border-slate-800/50">
+                                            <div>
+                                                <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest">Spread {game.homeTri}</p>
+                                                <p className="text-lg font-black text-amber-500 italic leading-none">{game.spread > 0 ? `+${game.spread}` : game.spread}</p>
+                                            </div>
+                                            <div>
+                                                <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest">Total O/U</p>
+                                                <p className="text-lg font-black text-white italic leading-none">{game.total}</p>
+                                            </div>
+                                        </div>
                                     </div>
-                                ) : (
-                                    <div className="glass-card rounded-3xl p-10 text-center">
-                                        <div className="text-3xl mb-3">🏀</div>
-                                        <p className="text-slate-600 font-black uppercase tracking-widest text-[9px] italic leading-relaxed">
-                                            Esperando cartelera de la tarde<br/>(4:00 PM CDMX)
-                                        </p>
-                                    </div>
-                                )}
+                                ))}
                             </div>
+                        ) : (
+                            <div className="bg-slate-900/30 border border-dashed border-slate-800 p-12 rounded-[2.5rem] text-center">
+                                <p className="text-slate-600 font-black uppercase tracking-[0.2em] text-[9px] italic">Esperando actualización de cartelera<br/>(11:00 AM CDMX)</p>
+                            </div>
+                        )}
+                    </section>
 
-                            {/* ── COLUMNA DERECHA: AUDITORÍA ── */}
-                            <div className={`lg:col-span-2 ${activeTab === 'picks' ? 'hidden lg:block' : 'block'} mt-8 lg:mt-0`}>
-                                <h2 className="text-sm font-black text-white mb-5 flex items-center gap-2 uppercase tracking-tight italic">
-                                    <Icons.Trophy className="text-emerald-500"/>
-                                    Auditoría
-                                    {audited.length > 0 && (
-                                        <span className={`ml-auto text-[10px] font-black px-2 py-0.5 rounded-lg ${pct >= 55 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-400'}`}>
-                                            {pct}% WR
-                                        </span>
-                                    )}
-                                </h2>
-<div className="glass-card rounded-3xl overflow-hidden">
-                                    <div className="overflow-x-auto">
-                                        <table className="w-full text-left">
-                                            <thead className="bg-slate-950 text-[8px] font-black text-slate-600 uppercase tracking-widest border-b border-slate-800">
-                                                <tr>
-                                                    <th className="px-4 py-3">Juego</th>
-                                                    <th className="px-3 py-3">Pred.</th>
-                                                    <th className="px-3 py-3">Real</th>
-                                                    <th className="px-3 py-3 text-right">Resultado</th>
+                    {/* SECCIÓN 2: AUDITORÍA TRIPLE INDICADOR */}
+                    <section>
+                        <h2 className="text-sm font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tight italic">
+                            <Icons.Trophy className="text-emerald-500" /> Auditoría Detallada
+                        </h2>
+                        <div className="glass-card rounded-[2rem] overflow-hidden">
+                            <div className="overflow-x-auto">
+                                <table className="w-full text-left">
+                                    <thead className="bg-slate-950 text-[8px] font-black text-slate-600 uppercase tracking-widest border-b border-slate-800">
+                                        <tr>
+                                            <th className="p-5">Encuentro</th>
+                                            <th className="p-5 text-center">ML</th>
+                                            <th className="p-5 text-center">Spread</th>
+                                            <th className="p-5 text-center">O/U</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody className="divide-y divide-slate-800/40">
+                                        {history.length > 0 ? history.map((res, i) => {
+                                            // Lógica de cálculo de precisión
+                                            const mlHit = (res.Pred_Home > res.Pred_Away) === (res.Actual_Home > res.Actual_Away);
+                                            const spreadErr = Math.abs((res.Actual_Home - res.Actual_Away) - (res.Pred_Home - res.Pred_Away));
+                                            const totalErr = Math.abs((res.Actual_Home + res.Actual_Away) - (res.Pred_Total || (res.Pred_Home + res.Pred_Away)));
+
+                                            return (
+                                                <tr key={i} className="hover:bg-white/[0.01]">
+                                                    <td className="p-5">
+                                                        <p className="text-[10px] font-black text-white uppercase leading-none mb-1">{res.Away} @ {res.Home}</p>
+                                                        <p className="text-[9px] text-slate-500 font-bold tracking-tighter italic tabular-nums">R: {res.Actual_Away}-{res.Actual_Home}</p>
+                                                    </td>
+                                                    <td className="p-5 text-center">
+                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${mlHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                                                            {mlHit ? 'WIN' : 'LOSS'}
+                                                        </span>
+                                                    </td>
+                                                    <td className="p-5 text-center">
+                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${spreadErr < 6.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
+                                                            {spreadErr < 6.5 ? 'HIT' : `±${Math.round(spreadErr)}`}
+                                                        </span>
+                                                    </td>
+                                                    <td className="p-5 text-center">
+                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${totalErr < 8.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
+                                                            {totalErr < 8.5 ? 'HIT' : `±${Math.round(totalErr)}`}
+                                                        </span>
+                                                    </td>
                                                 </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-slate-800/40">
-                                                {history.length > 0 ? history.map((res, i) => {
-                                                    const pWin = res.Pred_Home > res.Pred_Away ? res.Home : res.Away;
-                                                    const aWin = res.Actual_Home > res.Actual_Away ? res.Home : res.Away;
-                                                    const isHit = pWin === aWin;
-                                                    const hasFinal = res.Actual_Home != null;
-                                                    return (
-                                                        <tr key={i} className="hover:bg-slate-900/40 transition-colors">
-                                                            <td className="px-4 py-3">
-                                                                <p className="text-[11px] font-black text-white uppercase leading-tight">{tn(res.Away)} @ {tn(res.Home)}</p>
-                                                                <p className="text-[8px] text-slate-600 font-bold uppercase mt-0.5">{res.Date}</p>
-                                                            </td>
-                                                            {/* Predicción del Oráculo */}
-                                                            <td className="px-3 py-3">
-                                                                <p className="text-[10px] font-black text-amber-500/80 italic tabular-nums">
-                                                                    {res.Pred_Away}-{res.Pred_Home}
-                                                                </p>
-                                                            </td>
-                                                            {/* Resultado Real */}
-                                                            <td className="px-3 py-3">
-                                                                {hasFinal ? (
-                                                                    <p className="text-[10px] font-black text-white italic tabular-nums">
-                                                                        {res.Actual_Away}-{res.Actual_Home}
-                                                                    </p>
-                                                                ) : (
-                                                                    <span className="text-slate-600 text-[8px]">Pendiente</span>
-                                                                )}
-                                                            </td>
-                                                            <td className="px-3 py-3 text-right">
-                                                                {hasFinal ? (
-                                                                    <span className={`px-2 py-0.5 rounded text-[8px] font-black italic tracking-wider ${isHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                                                                        {isHit ? '✅ HIT' : '❌ MISS'}
-                                                                    </span>
-                                                                ) : (
-                                                                    <span className="text-[8px] text-slate-600 font-black italic">—</span>
-                                                                )}
-                                                            </td>
-                                                        </tr>
-                                                    );
-                                                }) : (
-                                                    <tr>
-                                                        <td colSpan="3" className="px-4 py-10 text-center">
-                                                            <div className="text-2xl mb-2">⏳</div>
-                                                            <p className="text-slate-700 text-[8px] font-black uppercase tracking-[0.2em] italic leading-relaxed">
-                                                                Esperando auditoría<br/>(4:00 AM CDMX)
-                                                            </p>
-                                                        </td>
-                                                    </tr>
-                                                )}
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                            );
+                                        }) : (
+                                            <tr>
+                                                <td colSpan="4" className="p-12 text-center text-slate-700 text-[9px] font-black uppercase italic tracking-widest">
+                                                    Esperando resultados oficiales<br/>(11:00 PM CDMX)
+                                                </td>
+                                            </tr>
+                                        )}
+                                    </tbody>
+                                </table>
                             </div>
-
                         </div>
-                    </main>
+                    </section>
 
-                    {/* ── FOOTER ── */}
-                    <footer className="mt-16 py-8 border-t border-slate-900/50">
-                        <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-3">
-                            <div className="flex items-center gap-3">
-                                <div className="w-7 h-7 bg-amber-500 rounded-lg flex items-center justify-center font-black text-slate-950 text-xs shadow-lg shadow-amber-500/10">C</div>
-                                <p className="text-[8px] text-slate-600 font-black uppercase tracking-[0.2em]">NBA Prediction Engine V3.5</p>
-                            </div>
-                            <p className="text-[8px] text-slate-700 font-bold italic">Data via ESPN API · Actualización automática 4AM & 11AM CDMX</p>
+                    <footer className="mt-20 py-10 border-t border-slate-900/50 text-center">
+                        <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center font-black text-slate-950 mx-auto mb-5 shadow-lg shadow-amber-500/20">C</div>
+                        <p className="text-[9px] text-slate-600 font-black uppercase tracking-[0.4em]">XGBoost optimized • Engine V3.5</p>
+                        <div className="flex justify-center gap-6 mt-4 opacity-40">
+                             <Icons.Target />
                         </div>
                     </footer>
                 </div>
