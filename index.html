@@ -49,24 +49,31 @@
 
             useEffect(() => {
                 const loadData = async () => {
-                    const v = new Date().getTime(); // Cache busting
+                    const v = new Date().getTime(); // Cache busting para evitar datos viejos
                     try {
                         const [pRes, hRes] = await Promise.allSettled([
-                            fetch(`predictions.json?v=${v}`).then(r => r.json()),
-                            fetch(`results.json?v=${v}`).then(r => r.json())
+                            fetch(`predictions.json?v=${v}`).then(r => r.ok ? r.json() : []),
+                            fetch(`results.json?v=${v}`).then(r => r.ok ? r.json() : [])
                         ]);
+                        
                         if (pRes.status === 'fulfilled') setPredictions(pRes.value);
                         if (hRes.status === 'fulfilled') setHistory(hRes.value);
-                    } catch (e) { console.error("Error sincronizando:", e); }
-                    setLoading(false);
+                    } catch (e) { 
+                        console.error("Error sincronizando datos:", e); 
+                    } finally {
+                        setLoading(false);
+                    }
                 };
                 loadData();
             }, []);
 
             // Cálculo dinámico de Efectividad (Win Rate)
             const stats = useMemo(() => {
-                if (history.length === 0) return 0;
-                const hits = history.filter(r => (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away)).length;
+                if (!Array.isArray(history) || history.length === 0) return 0;
+                const hits = history.filter(r => {
+                    if (r.Actual_Home === undefined || r.Actual_Away === undefined) return false;
+                    return (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
+                }).length;
                 return Math.round((hits / history.length) * 100);
             }, [history]);
 
@@ -82,15 +89,15 @@
                     {/* HEADER PROFESIONAL */}
                     <header className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
                         <div className="text-center md:text-left">
-                            <h1 className="text-5xl font-black italic tracking-tighter text-white uppercase">ORÁCULO<span className="text-amber-500 text-6xl">NBA</span></h1>
-                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2">Carlos Intelligence Unit • V4.2</p>
+                            <h1 className="text-5xl font-black italic tracking-tighter text-white uppercase leading-none">ORÁCULO<span className="text-amber-500 text-6xl">NBA</span></h1>
+                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2 italic">Carlos Intelligence Unit • V4.2</p>
                         </div>
                         <div className="flex gap-4 items-center bg-slate-900/80 border border-slate-800 p-6 rounded-[2rem] shadow-2xl">
                             <div className="text-right">
                                 <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Efectividad Global</p>
                                 <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">{stats}% WR</p>
                             </div>
-                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg shadow-amber-500/20">C</div>
+                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg shadow-amber-500/20 transition-transform hover:scale-105 cursor-default">C</div>
                         </div>
                     </header>
 
@@ -100,14 +107,14 @@
                             <h2 className="text-xl font-black text-white uppercase italic flex items-center gap-3">
                                 <span className="text-amber-500 text-2xl">⚡</span> Picks para Hoy
                             </h2>
-                            {predictions.length > 0 && (
+                            {predictions && predictions.length > 0 && (
                                 <span className="text-[10px] font-black text-slate-500 bg-slate-900 px-3 py-1 rounded-lg border border-slate-800 uppercase tracking-widest">
                                     {predictions.length} Juegos Activos
                                 </span>
                             )}
                         </div>
 
-                        {predictions.length > 0 ? (
+                        {predictions && predictions.length > 0 ? (
                             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
                                 {predictions.map((g, i) => (
                                     <div key={i} className={`glass-card rounded-[3rem] overflow-hidden flex flex-col shadow-2xl ${g.edge > 7 ? 'ring-2 ring-amber-500/30' : ''}`}>
@@ -141,8 +148,8 @@
                                                     <p className="text-xl font-black text-amber-500 italic leading-none">+{g.edge}</p>
                                                 </div>
                                             </div>
-                                            <div className="bet-btn p-5 rounded-2xl text-center shadow-lg transform transition-all active:scale-95">
-                                                <p className="text-[9px] font-black text-white/50 uppercase mb-1 tracking-tighter leading-none">Pick Recomendado</p>
+                                            <div className="bet-btn p-5 rounded-2xl text-center shadow-lg transform transition-all active:scale-95 cursor-pointer">
+                                                <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter">Pronóstico Recomendado</p>
                                                 <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none uppercase">APOSTAR A: {g.pick}</p>
                                             </div>
                                         </div>
@@ -162,9 +169,17 @@
 
                     {/* SECCIÓN 2: AUDITORÍA COMPARATIVA */}
                     <section className="max-w-6xl mx-auto">
-                        <h2 className="text-xl font-black text-white mb-8 uppercase italic flex items-center gap-3">
-                            <span className="text-emerald-500 text-2xl">📊</span> Auditoría: Predicción vs Real
-                        </h2>
+                        <div className="flex justify-between items-end mb-8">
+                            <h2 className="text-xl font-black text-white uppercase italic flex items-center gap-3">
+                                <span className="text-emerald-500 text-2xl">📊</span> Auditoría: Predicción vs Real
+                            </h2>
+                            <button 
+                                onClick={() => window.location.reload()}
+                                className="text-[10px] font-black text-emerald-500 hover:text-emerald-400 uppercase tracking-widest transition-colors"
+                            >
+                                [ Forzar Actualización ]
+                            </button>
+                        </div>
                         <div className="glass-card rounded-[3rem] overflow-hidden shadow-2xl">
                             <div className="overflow-x-auto">
                                 <table className="w-full text-left">
@@ -177,7 +192,7 @@
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-800/40">
-                                        {history.length > 0 ? history.map((r, i) => {
+                                        {Array.isArray(history) && history.length > 0 ? history.map((r, i) => {
                                             const isHit = (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
                                             const pSpread = (r.Pred_Away - r.Pred_Home).toFixed(1);
                                             const rSpread = (r.Actual_Away - r.Actual_Home).toFixed(1);
@@ -205,18 +220,22 @@
                                                 </tr>
                                             );
                                         }) : (
-                                            <tr><td colSpan="4" className="p-24 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">Sincronizando auditoría de madrugada...</td></tr>
+                                            <tr>
+                                                <td colSpan="4" className="p-24 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">
+                                                    <div className="flex flex-col items-center gap-3">
+                                                        <span>Sincronizando resultados oficiales...</span>
+                                                        <p className="normal-case font-normal text-slate-500 text-[10px]">
+                                                            Los resultados de hoy se procesan automáticamente después de medianoche.
+                                                        </p>
+                                                    </div>
+                                                </td>
+                                            </tr>
                                         )}
                                     </tbody>
                                 </table>
                             </div>
                         </div>
                     </section>
-
-                    <footer className="mt-32 pb-16 text-center opacity-30 border-t border-slate-900/50 pt-16">
-                         <div className="w-12 h-12 bg-slate-900 rounded-2xl flex items-center justify-center font-black text-amber-500 mx-auto mb-6 border border-slate-800">C</div>
-                         <p className="text-[10px] font-black uppercase tracking-[0.5em]">NBA Intelligence Engine V4.2 • Carlos Edition</p>
-                    </footer>
                 </div>
             );
         };
