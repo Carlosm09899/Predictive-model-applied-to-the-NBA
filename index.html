@@ -69,7 +69,8 @@
 
             // Cálculo dinámico de Efectividad (Win Rate)
             const stats = useMemo(() => {
-                if (!Array.isArray(history) || history.length === 0) return 0;
+                // Si no hay historial, no mostramos 0%, mostramos un guión o esperamos
+                if (!Array.isArray(history) || history.length === 0) return "--";
                 const hits = history.filter(r => {
                     if (r.Actual_Home === undefined || r.Actual_Away === undefined) return false;
                     return (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
@@ -95,7 +96,7 @@
                         <div className="flex gap-4 items-center bg-slate-900/80 border border-slate-800 p-6 rounded-[2rem] shadow-2xl">
                             <div className="text-right">
                                 <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Efectividad Global</p>
-                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">{stats}% WR</p>
+                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">{stats}{typeof stats === 'number' ? '%' : ''} WR</p>
                             </div>
                             <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg shadow-amber-500/20 transition-transform hover:scale-105 cursor-default">C</div>
                         </div>
