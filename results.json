@@ -1,39 +1,6 @@
 [
     {
         "Date": "2026-04-07",
-        "Home": "PHX",
-        "Away": "HOU",
-        "Pred_Home": 113.7,
-        "Pred_Away": 114.2,
-        "Pred_Total": 227.9,
-        "Pred_Spread": -0.5,
-        "Actual_Home": 105.0,
-        "Actual_Away": 119.0
-    },
-    {
-        "Date": "2026-04-07",
-        "Home": "IND",
-        "Away": "MIN",
-        "Pred_Home": 114.3,
-        "Pred_Away": 119.8,
-        "Pred_Total": 234.1,
-        "Pred_Spread": -5.5,
-        "Actual_Home": 104.0,
-        "Actual_Away": 124.0
-    },
-    {
-        "Date": "2026-04-07",
-        "Home": "BKN",
-        "Away": "MIL",
-        "Pred_Home": 111.1,
-        "Pred_Away": 113.3,
-        "Pred_Total": 224.4,
-        "Pred_Spread": -2.2,
-        "Actual_Home": 96.0,
-        "Actual_Away": 90.0
-    },
-    {
-        "Date": "2026-04-07",
         "Home": "TOR",
         "Away": "MIA",
         "Pred_Home": 126.1,
@@ -41,7 +8,10 @@
         "Pred_Total": 241.0,
         "Pred_Spread": 11.2,
         "Actual_Home": 121.0,
-        "Actual_Away": 95.0
+        "Actual_Away": 95.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -52,7 +22,10 @@
         "Pred_Total": 225.0,
         "Pred_Spread": 4.2,
         "Actual_Home": 113.0,
-        "Actual_Away": 102.0
+        "Actual_Away": 102.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -63,7 +36,10 @@
         "Pred_Total": 227.9,
         "Pred_Spread": -2.1,
         "Actual_Home": 87.0,
-        "Actual_Away": 123.0
+        "Actual_Away": 123.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -74,7 +50,10 @@
         "Pred_Total": 235.7,
         "Pred_Spread": 9.9,
         "Actual_Home": 116.0,
-        "Actual_Away": 103.0
+        "Actual_Away": 103.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -85,7 +64,10 @@
         "Pred_Total": 227.9,
         "Pred_Spread": -0.5,
         "Actual_Home": 105.0,
-        "Actual_Away": 119.0
+        "Actual_Away": 119.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -96,7 +78,10 @@
         "Pred_Total": 234.1,
         "Pred_Spread": -5.5,
         "Actual_Home": 104.0,
-        "Actual_Away": 124.0
+        "Actual_Away": 124.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -107,7 +92,10 @@
         "Pred_Total": 224.4,
         "Pred_Spread": -2.2,
         "Actual_Home": 96.0,
-        "Actual_Away": 90.0
+        "Actual_Away": 90.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -118,7 +106,10 @@
         "Pred_Total": 241.0,
         "Pred_Spread": 11.2,
         "Actual_Home": 121.0,
-        "Actual_Away": 95.0
+        "Actual_Away": 95.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -129,7 +120,10 @@
         "Pred_Total": 225.0,
         "Pred_Spread": 4.2,
         "Actual_Home": 113.0,
-        "Actual_Away": 102.0
+        "Actual_Away": 102.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -140,7 +134,10 @@
         "Pred_Total": 227.9,
         "Pred_Spread": -2.1,
         "Actual_Home": 87.0,
-        "Actual_Away": 123.0
+        "Actual_Away": 123.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -151,7 +148,10 @@
         "Pred_Total": 235.7,
         "Pred_Spread": 9.9,
         "Actual_Home": 116.0,
-        "Actual_Away": 103.0
+        "Actual_Away": 103.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
     },
     {
         "Date": "2026-04-07",
@@ -162,6 +162,51 @@
         "Pred_Total": 227.9,
         "Pred_Spread": -0.5,
         "Actual_Home": 105.0,
-        "Actual_Away": 119.0
+        "Actual_Away": 119.0,
+        "ML_Hit": NaN,
+        "Spread_Hit": NaN,
+        "Total_Hit": NaN
+    },
+    {
+        "Date": "2026-04-08",
+        "Home": "DEN",
+        "Away": "MEM",
+        "Pred_Home": 121.9,
+        "Pred_Away": 112.3,
+        "Pred_Total": 234.2,
+        "Pred_Spread": 9.6,
+        "Actual_Home": 136.0,
+        "Actual_Away": 119.0,
+        "ML_Hit": 1.0,
+        "Spread_Hit": 0.0,
+        "Total_Hit": 0.0
+    },
+    {
+        "Date": "2026-04-08",
+        "Home": "LAC",
+        "Away": "OKC",
+        "Pred_Home": 111.1,
+        "Pred_Away": 113.9,
+        "Pred_Total": 225.0,
+        "Pred_Spread": -2.8,
+        "Actual_Home": 110.0,
+        "Actual_Away": 128.0,
+        "ML_Hit": 1.0,
+        "Spread_Hit": 0.0,
+        "Total_Hit": 0.0
+    },
+    {
+        "Date": "2026-04-08",
+        "Home": "PHX",
+        "Away": "DAL",
+        "Pred_Home": 123.7,
+        "Pred_Away": 112.8,
+        "Pred_Total": 236.5,
+        "Pred_Spread": 10.9,
+        "Actual_Home": 112.0,
+        "Actual_Away": 107.0,
+        "ML_Hit": 1.0,
+        "Spread_Hit": 1.0,
+        "Total_Hit": 0.0
     }
 ]
