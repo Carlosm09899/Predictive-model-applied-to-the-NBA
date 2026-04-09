@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>El Oráculo NBA - Carlos Pro</title>
-    <!-- Motores de Diseño -->
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -21,6 +20,11 @@
             background: rgba(15, 23, 42, 0.6);
             backdrop-filter: blur(16px);
             border: 1px solid rgba(51, 65, 85, 0.4);
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+        }
+        .glass-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
         }
     </style>
 </head>
@@ -36,9 +40,6 @@
             ),
             Zap: ({ size = 18, fill = "none", className }) => (
                 <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill={fill} stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" className={className}><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
-            ),
-            Target: ({size = 18}) => (
-                <svg xmlns="http://www.w3.org/2000/svg" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
             )
         };
 
@@ -49,7 +50,7 @@
 
             useEffect(() => {
                 const loadData = async () => {
-                    const version = new Date().getTime(); // Cache busting
+                    const version = new Date().getTime();
                     try {
                         const [pRes, hRes] = await Promise.allSettled([
                             fetch(`predictions.json?v=${version}`).then(r => r.json()),
@@ -66,131 +67,143 @@
             if (loading) return (
                 <div className="flex h-screen flex-col items-center justify-center space-y-4">
                     <div className="w-10 h-10 border-4 border-amber-500 border-t-transparent rounded-full animate-spin"></div>
-                    <p className="text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] animate-pulse">Sincronizando Inteligencia...</p>
+                    <p className="text-amber-500 font-black text-[10px] uppercase tracking-[0.3em] animate-pulse">Sincronizando El Oráculo...</p>
                 </div>
             );
 
             return (
-                <div className="max-w-md mx-auto p-5 pb-20">
-                    <header className="flex justify-between items-center mb-10 pt-4">
-                        <div>
-                            <h1 className="text-3xl font-black italic tracking-tighter text-white">ORÁCULO<span className="text-amber-500">NBA</span></h1>
-                            <p className="text-slate-500 text-[9px] font-black uppercase tracking-widest">Carlos Intelligence Unit • V3.5</p>
-                        </div>
-                        <div className="bg-slate-900 border border-slate-800 px-3 py-1.5 rounded-xl text-center shadow-lg">
-                            <p className="text-[8px] text-slate-500 font-black uppercase mb-0.5">Accurate ML</p>
-                            <p className="text-sm font-black text-emerald-400">ONLINE</p>
-                        </div>
-                    </header>
-
-                    {/* SECCIÓN 1: CARTELERA ACTIVA */}
-                    <section className="mb-14">
-                        <h2 className="text-sm font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tight italic">
-                            <Icons.Zap size={16} className="text-amber-500" fill="currentColor"/> Cartelera para Hoy
-                        </h2>
-                        {predictions.length > 0 ? (
-                            <div className="space-y-6">
-                                {predictions.map((game, i) => (
-                                    <div key={i} className={`glass-card rounded-[2.5rem] overflow-hidden ${game.edgeTotal > 8 ? 'ring-1 ring-amber-500/50' : ''}`}>
-                                        <div className="px-5 py-3 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50 text-[9px] font-black uppercase">
-                                            <span className="text-slate-500">{game.time}</span>
-                                            <span className="text-amber-500 italic">{game.confidence}% Conf.</span>
-                                        </div>
-                                        <div className="p-8 flex justify-around items-center">
-                                            <div className="text-center w-24">
-                                                <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-2">{game.awayTri}</p>
-                                                <p className="text-2xl font-black text-white tracking-tighter">{game.aPred}</p>
-                                            </div>
-                                            <div className="text-slate-800 font-black text-xl italic tracking-tighter">VS</div>
-                                            <div className="text-center w-24">
-                                                <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-2">{game.homeTri}</p>
-                                                <p className="text-2xl font-black text-white tracking-tighter">{game.hPred}</p>
-                                            </div>
-                                        </div>
-                                        <div className="bg-slate-950/60 px-5 py-4 grid grid-cols-2 gap-4 text-center border-t border-slate-800/50">
-                                            <div>
-                                                <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest">Spread {game.homeTri}</p>
-                                                <p className="text-lg font-black text-amber-500 italic leading-none">{game.spread > 0 ? `+${game.spread}` : game.spread}</p>
-                                            </div>
-                                            <div>
-                                                <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest">Total O/U</p>
-                                                <p className="text-lg font-black text-white italic leading-none">{game.total}</p>
-                                            </div>
-                                        </div>
-                                    </div>
-                                ))}
+                <div className="min-h-screen bg-[#020617]">
+                    {/* Header Responsivo */}
+                    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+                        <header className="flex flex-col sm:flex-row justify-between items-center gap-6 mb-12">
+                            <div className="text-center sm:text-left">
+                                <h1 className="text-4xl font-black italic tracking-tighter text-white">ORÁCULO<span className="text-amber-500">NBA</span></h1>
+                                <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.3em]">Carlos Intelligence Unit • V3.5</p>
                             </div>
-                        ) : (
-                            <div className="bg-slate-900/30 border border-dashed border-slate-800 p-12 rounded-[2.5rem] text-center">
-                                <p className="text-slate-600 font-black uppercase tracking-[0.2em] text-[9px] italic">Esperando actualización de cartelera<br/>(11:00 AM CDMX)</p>
+                            <div className="flex items-center gap-4 bg-slate-900/80 border border-slate-800 p-4 rounded-2xl shadow-xl">
+                                <div className="text-right">
+                                    <p className="text-[9px] text-slate-500 font-black uppercase mb-0.5">Accurate ML</p>
+                                    <p className="text-sm font-black text-emerald-400">ONLINE</p>
+                                </div>
+                                <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center font-black text-slate-950 text-xl shadow-lg shadow-amber-500/20">C</div>
                             </div>
-                        )}
-                    </section>
+                        </header>
 
-                    {/* SECCIÓN 2: AUDITORÍA TRIPLE INDICADOR */}
-                    <section>
-                        <h2 className="text-sm font-black text-white mb-6 flex items-center gap-2 uppercase tracking-tight italic">
-                            <Icons.Trophy className="text-emerald-500" /> Auditoría Detallada
-                        </h2>
-                        <div className="glass-card rounded-[2rem] overflow-hidden">
-                            <div className="overflow-x-auto">
-                                <table className="w-full text-left">
-                                    <thead className="bg-slate-950 text-[8px] font-black text-slate-600 uppercase tracking-widest border-b border-slate-800">
-                                        <tr>
-                                            <th className="p-5">Encuentro</th>
-                                            <th className="p-5 text-center">ML</th>
-                                            <th className="p-5 text-center">Spread</th>
-                                            <th className="p-5 text-center">O/U</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody className="divide-y divide-slate-800/40">
-                                        {history.length > 0 ? history.map((res, i) => {
-                                            // Lógica de cálculo de precisión
-                                            const mlHit = (res.Pred_Home > res.Pred_Away) === (res.Actual_Home > res.Actual_Away);
-                                            const spreadErr = Math.abs((res.Actual_Home - res.Actual_Away) - (res.Pred_Home - res.Pred_Away));
-                                            const totalErr = Math.abs((res.Actual_Home + res.Actual_Away) - (res.Pred_Total || (res.Pred_Home + res.Pred_Away)));
+                        {/* SECCIÓN 1: CARTELERA ACTIVA (GRID RESPONSIVO) */}
+                        <section className="mb-20">
+                            <h2 className="text-lg font-black text-white mb-8 flex items-center gap-3 uppercase tracking-tight italic">
+                                <Icons.Zap size={20} className="text-amber-500" fill="currentColor"/> Cartelera de Hoy
+                            </h2>
+                            {predictions.length > 0 ? (
+                                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                                    {predictions.map((game, i) => (
+                                        <div key={i} className={`glass-card rounded-[2.5rem] overflow-hidden flex flex-col h-full ${game.edgeTotal > 8 ? 'ring-2 ring-amber-500/50 shadow-2xl shadow-amber-500/10' : ''}`}>
+                                            <div className="px-6 py-4 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50 text-[10px] font-black uppercase">
+                                                <span className="text-slate-500">{game.time}</span>
+                                                <span className="text-amber-500 italic">{game.confidence}% Confianza</span>
+                                            </div>
+                                            <div className="p-8 flex-grow flex justify-around items-center">
+                                                <div className="text-center w-28">
+                                                    <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-3">{game.awayTri}</p>
+                                                    <p className="text-3xl font-black text-white tracking-tighter tabular-nums">{game.aPred}</p>
+                                                </div>
+                                                <div className="text-slate-800 font-black text-2xl italic tracking-tighter opacity-50 px-2">VS</div>
+                                                <div className="text-center w-28">
+                                                    <p className="text-3xl font-black text-slate-800 uppercase leading-none mb-3">{game.homeTri}</p>
+                                                    <p className="text-3xl font-black text-white tracking-tighter tabular-nums">{game.hPred}</p>
+                                                </div>
+                                            </div>
+                                            <div className="bg-slate-950/60 px-6 py-5 grid grid-cols-2 gap-6 text-center border-t border-slate-800/50">
+                                                <div>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest leading-none">Spread {game.homeTri}</p>
+                                                    <p className="text-xl font-black text-amber-500 italic leading-none">{game.spread > 0 ? `+${game.spread}` : game.spread}</p>
+                                                </div>
+                                                <div>
+                                                    <p className="text-[9px] font-black text-slate-600 uppercase mb-2 tracking-widest leading-none">Total O/U</p>
+                                                    <p className="text-xl font-black text-white italic leading-none">{game.total}</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    ))}
+                                </div>
+                            ) : (
+                                <div className="bg-slate-900/30 border-2 border-dashed border-slate-800 p-16 rounded-[3rem] text-center max-w-2xl mx-auto">
+                                    <p className="text-slate-600 font-black uppercase tracking-[0.3em] text-xs italic leading-relaxed">
+                                        Esperando actualización de cartelera<br/>(11:00 AM CDMX)
+                                    </p>
+                                </div>
+                            )}
+                        </section>
 
-                                            return (
-                                                <tr key={i} className="hover:bg-white/[0.01]">
-                                                    <td className="p-5">
-                                                        <p className="text-[10px] font-black text-white uppercase leading-none mb-1">{res.Away} @ {res.Home}</p>
-                                                        <p className="text-[9px] text-slate-500 font-bold tracking-tighter italic tabular-nums">R: {res.Actual_Away}-{res.Actual_Home}</p>
-                                                    </td>
-                                                    <td className="p-5 text-center">
-                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${mlHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                                                            {mlHit ? 'WIN' : 'LOSS'}
-                                                        </span>
-                                                    </td>
-                                                    <td className="p-5 text-center">
-                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${spreadErr < 6.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
-                                                            {spreadErr < 6.5 ? 'HIT' : `±${Math.round(spreadErr)}`}
-                                                        </span>
-                                                    </td>
-                                                    <td className="p-5 text-center">
-                                                        <span className={`inline-block w-8 py-1 rounded text-[8px] font-black italic ${totalErr < 8.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
-                                                            {totalErr < 8.5 ? 'HIT' : `±${Math.round(totalErr)}`}
-                                                        </span>
+                        {/* SECCIÓN 2: AUDITORÍA (LISTA/TABLA RESPONSIVA) */}
+                        <section className="max-w-5xl mx-auto">
+                            <h2 className="text-lg font-black text-white mb-8 flex items-center gap-3 uppercase tracking-tight italic">
+                                <Icons.Trophy className="text-emerald-500" /> Auditoría Detallada
+                            </h2>
+                            <div className="glass-card rounded-[2.5rem] overflow-hidden shadow-2xl">
+                                <div className="overflow-x-auto">
+                                    <table className="w-full text-left border-collapse">
+                                        <thead className="bg-slate-950 text-[10px] font-black text-slate-600 uppercase tracking-widest border-b border-slate-800">
+                                            <tr>
+                                                <th className="p-6">Encuentro</th>
+                                                <th className="p-6 text-center">Moneyline</th>
+                                                <th className="p-6 text-center">Spread</th>
+                                                <th className="p-6 text-center">Total</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody className="divide-y divide-slate-800/40">
+                                            {history.length > 0 ? history.map((res, i) => {
+                                                const mlHit = (res.Pred_Home > res.Pred_Away) === (res.Actual_Home > res.Actual_Away);
+                                                const spreadErr = Math.abs((res.Actual_Home - res.Actual_Away) - (res.Pred_Home - res.Pred_Away));
+                                                const totalErr = Math.abs((res.Actual_Home + res.Actual_Away) - (res.Pred_Total || (res.Pred_Home + res.Pred_Away)));
+
+                                                return (
+                                                    <tr key={i} className="hover:bg-white/[0.02] transition-colors group">
+                                                        <td className="p-6">
+                                                            <div className="flex flex-col">
+                                                                <span className="text-xs font-black text-white uppercase mb-1">{res.Away} @ {res.Home}</span>
+                                                                <span className="text-[10px] text-slate-500 font-bold tabular-nums">Real: {res.Actual_Away}-{res.Actual_Home}</span>
+                                                            </div>
+                                                        </td>
+                                                        <td className="p-6 text-center">
+                                                            <span className={`inline-flex items-center justify-center min-w-[50px] py-1 px-2 rounded-lg text-[10px] font-black italic tracking-widest ${mlHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
+                                                                {mlHit ? 'WIN' : 'LOSS'}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-6 text-center">
+                                                            <span className={`inline-flex items-center justify-center min-w-[50px] py-1 px-2 rounded-lg text-[10px] font-black italic tracking-widest ${spreadErr < 6.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
+                                                                {spreadErr < 6.5 ? 'HIT' : `±${Math.round(spreadErr)}`}
+                                                            </span>
+                                                        </td>
+                                                        <td className="p-6 text-center">
+                                                            <span className={`inline-flex items-center justify-center min-w-[50px] py-1 px-2 rounded-lg text-[10px] font-black italic tracking-widest ${totalErr < 8.5 ? 'bg-emerald-500/10 text-emerald-400' : 'bg-slate-800 text-slate-500'}`}>
+                                                                {totalErr < 8.5 ? 'HIT' : `±${Math.round(totalErr)}`}
+                                                            </span>
+                                                        </td>
+                                                    </tr>
+                                                );
+                                            }) : (
+                                                <tr>
+                                                    <td colSpan="4" className="p-16 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.2em] leading-relaxed">
+                                                        Sincronizando resultados oficiales...<br/>(11:00 PM CDMX)
                                                     </td>
                                                 </tr>
-                                            );
-                                        }) : (
-                                            <tr>
-                                                <td colSpan="4" className="p-12 text-center text-slate-700 text-[9px] font-black uppercase italic tracking-widest">
-                                                    Esperando resultados oficiales<br/>(11:00 PM CDMX)
-                                                </td>
-                                            </tr>
-                                        )}
-                                    </tbody>
-                                </table>
+                                            )}
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
-                    </section>
+                        </section>
+                    </div>
 
-                    <footer className="mt-20 py-10 border-t border-slate-900/50 text-center">
-                        <div className="w-10 h-10 bg-amber-500 rounded-xl flex items-center justify-center font-black text-slate-950 mx-auto mb-5 shadow-lg shadow-amber-500/20">C</div>
-                        <p className="text-[9px] text-slate-600 font-black uppercase tracking-[0.4em]">XGBoost optimized • Engine V3.5</p>
-                        <div className="flex justify-center gap-6 mt-4 opacity-40">
-                             <Icons.Target />
+                    <footer className="mt-32 pb-16 text-center">
+                        <div className="max-w-xs mx-auto border-t border-slate-900 pt-10">
+                            <p className="text-[10px] text-slate-700 font-black uppercase tracking-[0.4em] mb-4">XGBoost Engine V3.5 • Optimized</p>
+                            <div className="flex justify-center gap-6 opacity-20 hover:opacity-40 transition-opacity">
+                                <Icons.Zap size={24} />
+                                <div className="w-px h-6 bg-slate-800"></div>
+                                <Icons.Trophy className="scale-125" />
+                            </div>
                         </div>
                     </footer>
                 </div>
