@@ -10,11 +10,17 @@ import warnings
 
 HEADERS = {
     'Host': 'stats.nba.com',
-    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/120.0.0.0 Safari/537.36',
+    'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/123.0.0.0 Safari/537.36',
     'Accept': 'application/json, text/plain, */*',
-    'Accept-Language': 'en-US,en;q=0.5',
+    'Accept-Language': 'en-US,en;q=0.9',
+    'Accept-Encoding': 'gzip, deflate, br',
+    'x-nba-stats-origin': 'stats',
+    'x-nba-stats-token': 'true',
+    'Origin': 'https://www.nba.com',
     'Referer': 'https://www.nba.com/',
     'Connection': 'keep-alive',
+    'Cache-Control': 'no-cache',
+    'Pragma': 'no-cache',
 }
 
 def get_todays_games():
@@ -157,11 +163,36 @@ if __name__ == "__main__":
     search_date = now if now.hour < 22 else now + timedelta(days=1)
     date_str = search_date.strftime('%Y-%m-%d')
     
+    frames = None
+    # ✅ FIX: Usar HEADERS y timeout en todos los intentos
+    for attempt in range(3):
+        try:
+            print(f"📡 Conectando con la NBA (Intento {attempt + 1})...")
+            sb = scoreboardv2.ScoreboardV2(
+                game_date=date_str,
+                timeout=60,
+                headers=HEADERS
+            )
+            frames = sb.get_data_frames()
+            break
+        except Exception as e:
+            print(f"⚠️ Intento {attempt + 1} falló: {e}")
+            if attempt < 2:
+                wait = 15 * (attempt + 1)  # 15s, 30s
+                print(f"⏳ Esperando {wait} segundos antes de reintentar...")
+                time.sleep(wait)
+    
+    if frames is None:
+        print("❌ La API de la NBA no respondió después de 3 intentos.")
+        print("⏳ Se intentará de nuevo en la próxima ejecución automática.")
+        # Preservar el predictions.json anterior si existe
+        if not os.path.exists('predictions.json'):
+            with open('predictions.json', 'w', encoding='utf-8') as f:
+                json.dump([], f)
+        exit(0)
+
     try:
-        sb = scoreboardv2.ScoreboardV2(game_date=date_str)
-        frames = sb.get_data_frames()
         header = frames[0]
-        line_score = frames[1] if len(frames) > 1 else pd.DataFrame()
         
         web_predictions = []
         print(f"🔍 Fecha: {date_str} | Juegos encontrados: {len(header)}")
@@ -190,4 +221,4 @@ if __name__ == "__main__":
         print("💻 Abre tu 'nba_dashboard.html' para ver los resultados.")
 
     except Exception as e:
-        print(f"❌ Error en la API: {e}")
+        print(f"❌ Error procesando datos: {e}")
