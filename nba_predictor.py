@@ -169,8 +169,8 @@ if __name__ == "__main__":
             h_tri = home_team['team']['abbreviation']
             a_tri = away_team['team']['abbreviation']
 
-            # Solo procesar juegos no terminados
-            if status_name not in ('STATUS_FINAL', 'STATUS_HALFTIME', 'STATUS_IN_PROGRESS'):
+            # Incluir juegos no terminados (programados, en curso, medio tiempo)
+            if status_name != 'STATUS_FINAL':
                 game_time_utc = event.get('date', '')
                 time_mx = convert_espn_time(game_time_utc, search_date)
 
