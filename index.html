@@ -101,7 +101,7 @@
                     <div className="p-5 sm:p-6 flex items-center justify-between gap-3">
                         {/* Visitante */}
                         <div className="text-center flex-1 min-w-0">
-                            <p className="text-lg sm:text-2xl font-black text-slate-600 leading-none mb-1.5 uppercase tracking-tight truncate">{game.awayTri}</p>
+                            <p className="text-base sm:text-xl font-black text-slate-400 leading-none mb-1.5 uppercase tracking-tight truncate">{game.away}</p>
                             <p className="text-2xl sm:text-3xl font-black text-white leading-none">{game.aPred}</p>
                         </div>
 
@@ -113,7 +113,7 @@
 
                         {/* Local */}
                         <div className="text-center flex-1 min-w-0">
-                            <p className="text-lg sm:text-2xl font-black text-slate-600 leading-none mb-1.5 uppercase tracking-tight truncate">{game.homeTri}</p>
+                            <p className="text-base sm:text-xl font-black text-slate-400 leading-none mb-1.5 uppercase tracking-tight truncate">{game.home}</p>
                             <p className="text-2xl sm:text-3xl font-black text-white leading-none">{game.hPred}</p>
                         </div>
                     </div>
@@ -121,7 +121,7 @@
                     {/* Pie — Hándicap y Total */}
                     <div className="bg-slate-950/60 px-5 py-3.5 grid grid-cols-2 gap-4 text-center border-t border-slate-800/50">
                         <div>
-                            <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest leading-none">Hándicap {game.homeTri}</p>
+                            <p className="text-[8px] font-black text-slate-600 uppercase mb-1 tracking-widest leading-none">Hándicap {game.home}</p>
                             <p className="text-sm sm:text-base font-black text-amber-500 italic leading-none">
                                 {game.spread > 0 ? `+${game.spread}` : game.spread}
                             </p>
