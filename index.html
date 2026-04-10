@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>El Oráculo NBA - Carlos Pro</title>
-    <!-- Motores de Diseño y Lógica -->
+    <title>NBA Oracle V5.1 - Carlos Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -32,9 +31,7 @@
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
             box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
-        .glow-wr {
-            text-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
-        }
+        .badge { @apply px-2 py-0.5 rounded-lg text-[10px] font-black uppercase tracking-tighter flex items-center gap-1; }
     </style>
 </head>
 <body class="text-slate-200">
@@ -50,130 +47,126 @@
 
             useEffect(() => {
                 const loadData = async () => {
-                    const v = new Date().getTime(); // Cache busting
-                    
-                    const fetchData = async (fileName) => {
+                    const v = new Date().getTime();
+                    const fetchData = async (file) => {
                         try {
-                            const response = await fetch(`./${fileName}?v=${v}`);
-                            if (!response.ok) return "[]";
-                            const text = await response.text();
-                            // Limpieza crucial: NaN rompe el JSON.parse, lo cambiamos a null
-                            return text.replace(/NaN/g, "null");
-                        } catch (err) {
-                            return "[]";
-                        }
+                            const r = await fetch(`./${file}?v=${v}`);
+                            if (!r.ok) return "[]";
+                            const text = await r.text();
+                            return text.replace(/NaN/g, "null"); // Parche para NaNs
+                        } catch (e) { return "[]"; }
                     };
 
                     try {
-                        const [pRaw, hRaw] = await Promise.all([
-                            fetchData('predictions.json'),
-                            fetchData('results.json')
-                        ]);
-                        
+                        const [pRaw, hRaw] = await Promise.all([fetchData('predictions.json'), fetchData('results.json')]);
                         setPredictions(JSON.parse(pRaw));
                         setHistory(JSON.parse(hRaw));
-                    } catch (e) { 
-                        console.error("Error procesando archivos:", e); 
-                    } finally {
-                        setLoading(false);
-                    }
+                    } catch (e) { console.error(e); }
+                    setLoading(false);
                 };
                 loadData();
             }, []);
 
-            // Cálculo dinámico de Efectividad (Win Rate)
             const stats = useMemo(() => {
-                const validGames = Array.isArray(history) ? history.filter(r => r.Actual_Home !== null && r.Actual_Away !== null) : [];
-                if (validGames.length === 0) return "--";
-                const hits = validGames.filter(r => (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away)).length;
-                return Math.round((hits / validGames.length) * 100);
+                const valid = Array.isArray(history) ? history.filter(r => r.Actual_Home !== null) : [];
+                if (valid.length === 0) return "--";
+                const hits = valid.filter(r => (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away)).length;
+                return Math.round((hits / valid.length) * 100);
             }, [history]);
 
             if (loading) return (
                 <div className="h-screen flex flex-col items-center justify-center bg-[#020617]">
                     <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse italic">Iniciando Oráculo...</p>
+                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse italic">Cargando Inteligencia V5.1...</p>
                 </div>
             );
 
             return (
                 <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-10">
-                    {/* ENCABEZADO Y STATS */}
-                    <header className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8 text-center md:text-left">
-                        <div>
+                    {/* HEADER */}
+                    <header className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
+                        <div className="text-center md:text-left">
                             <h1 className="text-5xl font-black italic tracking-tighter text-white uppercase leading-none">ORÁCULO<span className="text-amber-500 text-6xl">NBA</span></h1>
-                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2 italic">Carlos Intelligence Unit • V4.2</p>
+                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2 italic">Carlos Intelligence Unit • V5.1 PRO</p>
                         </div>
                         <div className="flex gap-4 items-center bg-slate-900/80 border border-slate-800 p-6 rounded-[2rem] shadow-2xl">
                             <div className="text-right">
-                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest mb-1">Win Rate Global</p>
-                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">
-                                    {stats}{typeof stats === 'number' ? '%' : ''} WR
-                                </p>
+                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Efectividad ML</p>
+                                <p className="text-4xl font-black text-emerald-400 italic leading-none">{stats}% WR</p>
                             </div>
-                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg transition-transform hover:scale-105">C</div>
+                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg">C</div>
                         </div>
                     </header>
 
-                    {/* SECCIÓN 1: CARTELERA Y PICKS */}
+                    {/* SECCIÓN 1: PICKS POR CUARTOS Y LESIONES */}
                     <section className="mb-24">
                         <h2 className="text-xl font-black text-white mb-8 uppercase italic flex items-center gap-3">
-                            <span className="text-amber-500 text-2xl">⚡</span> Picks para Hoy
+                            <span className="text-amber-500 text-2xl">⚡</span> Análisis de Jornada
                         </h2>
-                        {predictions.length > 0 ? (
-                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-10">
-                                {predictions.map((g, i) => (
-                                    <div key={i} className={`glass-card rounded-[3rem] overflow-hidden flex flex-col shadow-2xl ${g.edge > 7 ? 'ring-2 ring-amber-500/30' : ''}`}>
-                                        <div className="px-8 py-4 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50 text-[10px] font-black uppercase">
-                                            <span className="text-slate-500">{g.time}</span>
-                                            <span className="text-amber-500 italic">{g.confidence}% Confianza</span>
+                        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-10">
+                            {predictions.map((g, i) => (
+                                <div key={i} className="glass-card rounded-[3rem] overflow-hidden flex flex-col shadow-2xl">
+                                    {/* Score Predicho */}
+                                    <div className="p-8 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50">
+                                        <div className="text-center">
+                                            <p className="text-xl font-black text-slate-500 uppercase leading-none mb-2">{g.away}</p>
+                                            <p className="text-4xl font-black text-white tabular-nums">{g.aPred}</p>
                                         </div>
-                                        <div className="p-10 flex justify-around items-center">
-                                            <div className="text-center w-28">
-                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 leading-none">{g.away}</p>
-                                                <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.aPred}</p>
-                                            </div>
-                                            <div className="text-slate-800 font-black text-2xl italic opacity-20 px-2">VS</div>
-                                            <div className="text-center w-28">
-                                                <p className="text-2xl font-black text-slate-700 uppercase mb-2 leading-none">{g.home}</p>
-                                                <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.hPred}</p>
+                                        <div className="flex flex-col items-center">
+                                            <span className="text-[10px] font-black text-slate-600 mb-1">{g.time}</span>
+                                            <span className="text-2xl font-black text-slate-800 italic">VS</span>
+                                            <span className="text-amber-500 font-black text-[10px] mt-1 italic">{g.confidence}% CONF.</span>
+                                        </div>
+                                        <div className="text-center">
+                                            <p className="text-xl font-black text-slate-500 uppercase leading-none mb-2">{g.home}</p>
+                                            <p className="text-4xl font-black text-white tabular-nums">{g.hPred}</p>
+                                        </div>
+                                    </div>
+
+                                    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                                        {/* Columna Izquierda: Lesiones */}
+                                        <div className="space-y-4">
+                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2">🚨 Reporte de Bajas</h3>
+                                            <div className="space-y-2">
+                                                {g.injuries && g.injuries.length > 0 ? g.injuries.map((inj, idx) => (
+                                                    <div key={idx} className="flex justify-between items-center text-[10px] bg-slate-900/50 p-2 rounded-lg">
+                                                        <span className="font-bold text-slate-300">{inj.player}</span>
+                                                        <span className={`font-black uppercase ${inj.status === 'Out' ? 'text-red-500' : 'text-amber-500'}`}>{inj.status}</span>
+                                                    </div>
+                                                )) : <p className="text-[10px] italic text-emerald-500">Plantillas completas reportadas.</p>}
                                             </div>
                                         </div>
-                                        <div className="bg-slate-950/60 p-8 border-t border-slate-800/50 space-y-6">
-                                            <div className="grid grid-cols-3 gap-2 text-center border-b border-slate-800 pb-6">
-                                                <div>
-                                                    <p className="text-[9px] text-slate-600 font-black uppercase mb-1 leading-none tracking-tighter">Total {g.totalType || 'Pts'}</p>
-                                                    <p className="text-xl font-black text-white italic leading-none">{g.total}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-[9px] text-slate-600 font-black uppercase mb-1 leading-none tracking-tighter">Hándicap</p>
-                                                    <p className="text-xl font-black text-white italic leading-none">{g.spread > 0 ? `+${g.spread}` : g.spread}</p>
-                                                </div>
-                                                <div>
-                                                    <p className="text-[9px] text-slate-600 font-black uppercase mb-1 leading-none tracking-tighter">Edge</p>
-                                                    <p className="text-xl font-black text-amber-500 italic leading-none">+{g.edge}</p>
-                                                </div>
-                                            </div>
-                                            <div className="bet-btn p-5 rounded-2xl text-center shadow-lg transform transition-all active:scale-95">
-                                                <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter italic">Pronóstico Recomendado</p>
-                                                <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none">APOSTAR A: {g.pick || g.home}</p>
+
+                                        {/* Columna Derecha: Picks por Cuarto */}
+                                        <div className="bg-slate-950/60 p-5 rounded-3xl border border-slate-800">
+                                            <h3 className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-4 italic">🎯 Ganador por Periodo</h3>
+                                            <div className="grid grid-cols-2 gap-2">
+                                                {Object.entries(g.picks).map(([per, team]) => (
+                                                    <div key={per} className="bg-slate-900/80 p-2 rounded-xl border border-slate-800 flex justify-between items-center">
+                                                        <span className="text-[8px] font-black text-slate-600 uppercase">{per}</span>
+                                                        <span className="text-[9px] font-black text-white italic uppercase">{team}</span>
+                                                    </div>
+                                                ))}
                                             </div>
                                         </div>
                                     </div>
-                                ))}
-                            </div>
-                        ) : (
-                            <div className="bg-slate-900/20 border-2 border-dashed border-slate-800 p-20 rounded-[3rem] text-center max-w-2xl mx-auto shadow-inner">
-                                <p className="text-amber-500 font-black uppercase tracking-[0.2em] text-sm italic mb-2">Cartelera Finalizada</p>
-                                <p className="text-slate-500 font-medium text-xs leading-relaxed italic">Vuelve pronto para los picks de la siguiente jornada.</p>
-                            </div>
-                        )}
+
+                                    {/* Botón de Acción */}
+                                    <div className="px-8 pb-8">
+                                        <div className="bet-btn p-4 rounded-2xl text-center">
+                                            <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter italic">Recomendación Final</p>
+                                            <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none">APOSTAR: {g.picks.Final} ML / {g.totalType} {g.total}</p>
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
                     </section>
 
-                    {/* SECCIÓN 2: AUDITORÍA COMPARATIVA */}
+                    {/* SECCIÓN 2: AUDITORÍA DETALLADA ✅/❌ */}
                     <section className="max-w-6xl mx-auto">
                         <h2 className="text-xl font-black text-white mb-8 uppercase italic flex items-center gap-3">
-                            <span className="text-emerald-500 text-2xl">📊</span> Auditoría: Predicción vs Real
+                            <span className="text-emerald-500 text-2xl">📊</span> Auditoría de Apuestas
                         </h2>
                         <div className="glass-card rounded-[3rem] overflow-hidden shadow-2xl">
                             <div className="overflow-x-auto">
@@ -181,39 +174,38 @@
                                     <thead className="bg-slate-950 text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] border-b border-slate-800">
                                         <tr>
                                             <th className="p-8">Encuentro</th>
-                                            <th className="p-8">Predicción Pts</th>
-                                            <th className="p-8">Marcador Real</th>
-                                            <th className="p-8 text-center">Status ML</th>
+                                            <th className="p-8">Desglose de Resultados</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-800/40">
                                         {Array.isArray(history) && history.length > 0 ? history.map((r, i) => {
-                                            const isHit = (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
-                                            const pSpread = (r.Pred_Away - r.Pred_Home).toFixed(1);
-                                            const rSpread = (r.Actual_Away - r.Actual_Home).toFixed(1);
-                                            const spreadAcc = Math.abs(pSpread - rSpread).toFixed(1);
+                                            const mlHit = (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
+                                            const sprHit = Math.abs((r.Actual_Home - r.Actual_Away) - (r.Pred_Home - r.Pred_Away)) < 6.5;
+                                            const totHit = Math.abs((r.Actual_Home + r.Actual_Away) - (r.Pred_Total || (r.Pred_Home + r.Pred_Away))) < 8.5;
 
                                             return (
                                                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                                                     <td className="p-8">
                                                         <p className="text-sm font-black text-white uppercase leading-none mb-1">{r.Away} @ {r.Home}</p>
-                                                        <p className="text-[10px] text-slate-500 font-bold uppercase">{r.Date}</p>
+                                                        <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter italic">Real: {r.Actual_Away}-{r.Actual_Home}</p>
                                                     </td>
                                                     <td className="p-8">
-                                                        <p className="text-amber-500/80 font-black text-sm italic tracking-tighter">P: {r.Pred_Away}-{r.Pred_Home} (Hnd: {pSpread})</p>
-                                                    </td>
-                                                    <td className="p-8">
-                                                        <p className="text-white font-black text-sm tracking-tighter">R: {r.Actual_Away}-{r.Actual_Home} (Dif: {spreadAcc})</p>
-                                                    </td>
-                                                    <td className="p-8 text-center">
-                                                        <span className={`px-5 py-2 rounded-xl text-[10px] font-black italic tracking-widest ${isHit ? 'bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 shadow-lg' : 'bg-red-500/10 text-red-400 border border-red-500/20'}`}>
-                                                            {isHit ? 'GANADA' : 'PERDIDA'}
-                                                        </span>
+                                                        <div className="flex flex-wrap gap-3">
+                                                            <div className={`badge ${mlHit ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                                                                Ganador {mlHit ? '✅' : '❌'}
+                                                            </div>
+                                                            <div className={`badge ${sprHit ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                                                                Handicap {r.Pred_Spread > 0 ? '+' : ''}{r.Pred_Spread} {sprHit ? '✅' : '❌'}
+                                                            </div>
+                                                            <div className={`badge ${totHit ? 'bg-emerald-500/10 text-emerald-400' : 'bg-red-500/10 text-red-400'}`}>
+                                                                Total {r.Pred_Total} {totHit ? '✅' : '❌'}
+                                                            </div>
+                                                        </div>
                                                     </td>
                                                 </tr>
                                             );
                                         }) : (
-                                            <tr><td colSpan="4" className="p-24 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">Sincronizando resultados de la jornada...</td></tr>
+                                            <tr><td colSpan="2" className="p-20 text-center text-slate-700 text-xs font-black uppercase italic italic tracking-[0.4em]">Sincronizando historial...</td></tr>
                                         )}
                                     </tbody>
                                 </table>
