@@ -5,22 +5,22 @@
         "h_tri": "BOS",
         "a_tri": "ORL",
         "time": "04:00 PM",
-        "hPred": 120.7,
-        "aPred": 114.0,
+        "hPred": 109.8,
+        "aPred": 117.1,
         "picks": {
             "Q1": "Celtics",
-            "Q2": "Celtics",
-            "Q3": "Celtics",
+            "Q2": "Magic",
+            "Q3": "Magic",
             "Q4": "Magic",
-            "1H": "Celtics",
-            "Final": "Celtics"
+            "1H": "Magic",
+            "Final": "Magic"
         },
-        "total": 234.7,
-        "spread": -6.7,
+        "total": 226.9,
+        "spread": 7.3,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 3.1,
-        "confidence": 93
+        "edge": 9.6,
+        "confidence": 96
     },
     {
         "home": "Cavaliers",
@@ -28,22 +28,22 @@
         "h_tri": "CLE",
         "a_tri": "WSH",
         "time": "04:00 PM",
-        "hPred": 117.4,
-        "aPred": 102.2,
+        "hPred": 112.0,
+        "aPred": 109.1,
         "picks": {
-            "Q1": "Cavaliers",
+            "Q1": "WSH",
             "Q2": "WSH",
             "Q3": "Cavaliers",
-            "Q4": "WSH",
+            "Q4": "Cavaliers",
             "1H": "Cavaliers",
             "Final": "Cavaliers"
         },
-        "total": 219.6,
-        "spread": -15.2,
+        "total": 221.1,
+        "spread": -2.9,
         "totalType": "UNDER",
         "injuries": [],
-        "edge": 3.1,
-        "confidence": 85
+        "edge": 6.4,
+        "confidence": 94
     },
     {
         "home": "Pacers",
@@ -51,22 +51,22 @@
         "h_tri": "IND",
         "a_tri": "DET",
         "time": "04:00 PM",
-        "hPred": 104.0,
-        "aPred": 114.3,
+        "hPred": 119.6,
+        "aPred": 109.9,
         "picks": {
             "Q1": "Pacers",
             "Q2": "Pacers",
-            "Q3": "Pacers",
+            "Q3": "Pistons",
             "Q4": "Pistons",
-            "1H": "Pistons",
-            "Final": "Pistons"
+            "1H": "Pacers",
+            "Final": "Pacers"
         },
-        "total": 218.3,
-        "spread": 10.3,
-        "totalType": "UNDER",
+        "total": 229.5,
+        "spread": -9.7,
+        "totalType": "OVER",
         "injuries": [],
-        "edge": 3.6,
-        "confidence": 83
+        "edge": 3.5,
+        "confidence": 86
     },
     {
         "home": "Heat",
@@ -74,22 +74,22 @@
         "h_tri": "MIA",
         "a_tri": "ATL",
         "time": "04:00 PM",
-        "hPred": 114.2,
+        "hPred": 115.1,
         "aPred": 111.5,
         "picks": {
             "Q1": "Heat",
-            "Q2": "Hawks",
-            "Q3": "Heat",
+            "Q2": "Heat",
+            "Q3": "Hawks",
             "Q4": "Hawks",
             "1H": "Heat",
             "Final": "Heat"
         },
-        "total": 225.7,
-        "spread": -2.7,
-        "totalType": "UNDER",
+        "total": 226.6,
+        "spread": -3.6,
+        "totalType": "OVER",
         "injuries": [],
-        "edge": 8.4,
-        "confidence": 76
+        "edge": 5.5,
+        "confidence": 89
     },
     {
         "home": "NY",
@@ -97,22 +97,22 @@
         "h_tri": "NY",
         "a_tri": "CHA",
         "time": "04:00 PM",
-        "hPred": 113.4,
-        "aPred": 108.1,
+        "hPred": 107.1,
+        "aPred": 106.9,
         "picks": {
             "Q1": "NY",
             "Q2": "NY",
-            "Q3": "NY",
+            "Q3": "Bobcats",
             "Q4": "Bobcats",
             "1H": "NY",
             "Final": "NY"
         },
-        "total": 221.5,
-        "spread": -5.3,
+        "total": 214.0,
+        "spread": -0.2,
         "totalType": "UNDER",
         "injuries": [],
-        "edge": 8.1,
-        "confidence": 87
+        "edge": 8.6,
+        "confidence": 79
     },
     {
         "home": "76ers",
@@ -120,22 +120,22 @@
         "h_tri": "PHI",
         "a_tri": "MIL",
         "time": "04:00 PM",
-        "hPred": 117.8,
-        "aPred": 108.9,
+        "hPred": 113.1,
+        "aPred": 105.8,
         "picks": {
-            "Q1": "Bucks",
+            "Q1": "76ers",
             "Q2": "Bucks",
-            "Q3": "Bucks",
+            "Q3": "76ers",
             "Q4": "Bucks",
             "1H": "76ers",
             "Final": "76ers"
         },
-        "total": 226.7,
-        "spread": -8.9,
-        "totalType": "OVER",
+        "total": 218.9,
+        "spread": -7.3,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 5.1,
-        "confidence": 86
+        "edge": 8.3,
+        "confidence": 83
     },
     {
         "home": "Raptors",
@@ -143,8 +143,8 @@
         "h_tri": "TOR",
         "a_tri": "BKN",
         "time": "04:00 PM",
-        "hPred": 114.0,
-        "aPred": 114.9,
+        "hPred": 112.3,
+        "aPred": 113.1,
         "picks": {
             "Q1": "Raptors",
             "Q2": "Raptors",
@@ -153,12 +153,12 @@
             "1H": "Nets",
             "Final": "Nets"
         },
-        "total": 228.9,
-        "spread": 0.9,
-        "totalType": "OVER",
+        "total": 225.4,
+        "spread": 0.8,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 5.4,
-        "confidence": 78
+        "edge": 7.9,
+        "confidence": 82
     },
     {
         "home": "Mavericks",
@@ -166,22 +166,22 @@
         "h_tri": "DAL",
         "a_tri": "CHI",
         "time": "06:30 PM",
-        "hPred": 121.1,
-        "aPred": 110.4,
+        "hPred": 122.3,
+        "aPred": 115.9,
         "picks": {
-            "Q1": "Mavericks",
-            "Q2": "Mavericks",
-            "Q3": "Bulls",
-            "Q4": "Bulls",
+            "Q1": "Bulls",
+            "Q2": "Bulls",
+            "Q3": "Mavericks",
+            "Q4": "Mavericks",
             "1H": "Mavericks",
             "Final": "Mavericks"
         },
-        "total": 231.5,
-        "spread": -10.7,
+        "total": 238.2,
+        "spread": -6.4,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 10.7,
-        "confidence": 77
+        "edge": 6.5,
+        "confidence": 81
     },
     {
         "home": "Rockets",
@@ -189,22 +189,22 @@
         "h_tri": "HOU",
         "a_tri": "MEM",
         "time": "06:30 PM",
-        "hPred": 110.9,
-        "aPred": 107.3,
+        "hPred": 117.2,
+        "aPred": 113.8,
         "picks": {
             "Q1": "Rockets",
-            "Q2": "Grizzlies",
-            "Q3": "Rockets",
+            "Q2": "Rockets",
+            "Q3": "Grizzlies",
             "Q4": "Grizzlies",
             "1H": "Rockets",
             "Final": "Rockets"
         },
-        "total": 218.2,
-        "spread": -3.6,
-        "totalType": "UNDER",
+        "total": 231.0,
+        "spread": -3.4,
+        "totalType": "OVER",
         "injuries": [],
-        "edge": 3.3,
-        "confidence": 90
+        "edge": 7.1,
+        "confidence": 82
     },
     {
         "home": "Timberwolves",
@@ -212,22 +212,22 @@
         "h_tri": "MIN",
         "a_tri": "NO",
         "time": "06:30 PM",
-        "hPred": 119.3,
-        "aPred": 107.3,
+        "hPred": 112.2,
+        "aPred": 117.3,
         "picks": {
-            "Q1": "NO",
+            "Q1": "Timberwolves",
             "Q2": "Timberwolves",
             "Q3": "Timberwolves",
             "Q4": "NO",
-            "1H": "Timberwolves",
-            "Final": "Timberwolves"
+            "1H": "NO",
+            "Final": "NO"
         },
-        "total": 226.6,
-        "spread": -12.0,
+        "total": 229.5,
+        "spread": 5.1,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 9.2,
-        "confidence": 75
+        "edge": 7.2,
+        "confidence": 78
     },
     {
         "home": "Thunder",
@@ -235,22 +235,22 @@
         "h_tri": "OKC",
         "a_tri": "PHX",
         "time": "06:30 PM",
-        "hPred": 117.5,
-        "aPred": 105.6,
+        "hPred": 112.1,
+        "aPred": 106.7,
         "picks": {
-            "Q1": "Thunder",
+            "Q1": "Suns",
             "Q2": "Thunder",
-            "Q3": "Suns",
-            "Q4": "Suns",
+            "Q3": "Thunder",
+            "Q4": "Thunder",
             "1H": "Thunder",
             "Final": "Thunder"
         },
-        "total": 223.1,
-        "spread": -11.9,
+        "total": 218.8,
+        "spread": -5.4,
         "totalType": "UNDER",
         "injuries": [],
-        "edge": 11.0,
-        "confidence": 92
+        "edge": 7.8,
+        "confidence": 83
     },
     {
         "home": "SA",
@@ -258,22 +258,22 @@
         "h_tri": "SA",
         "a_tri": "DEN",
         "time": "06:30 PM",
-        "hPred": 113.3,
-        "aPred": 100.1,
+        "hPred": 103.3,
+        "aPred": 106.7,
         "picks": {
             "Q1": "Nuggets",
-            "Q2": "Nuggets",
-            "Q3": "SA",
+            "Q2": "SA",
+            "Q3": "Nuggets",
             "Q4": "Nuggets",
-            "1H": "SA",
-            "Final": "SA"
+            "1H": "Nuggets",
+            "Final": "Nuggets"
         },
-        "total": 213.4,
-        "spread": -13.2,
+        "total": 210.0,
+        "spread": 3.4,
         "totalType": "UNDER",
         "injuries": [],
-        "edge": 3.4,
-        "confidence": 97
+        "edge": 6.3,
+        "confidence": 92
     },
     {
         "home": "Lakers",
@@ -281,22 +281,22 @@
         "h_tri": "LAL",
         "a_tri": "UTAH",
         "time": "06:30 PM",
-        "hPred": 117.3,
-        "aPred": 109.9,
+        "hPred": 111.1,
+        "aPred": 106.0,
         "picks": {
             "Q1": "Lakers",
-            "Q2": "UTAH",
-            "Q3": "Lakers",
-            "Q4": "UTAH",
+            "Q2": "Lakers",
+            "Q3": "UTAH",
+            "Q4": "Lakers",
             "1H": "Lakers",
             "Final": "Lakers"
         },
-        "total": 227.2,
-        "spread": -7.4,
-        "totalType": "OVER",
+        "total": 217.1,
+        "spread": -5.1,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 8.8,
-        "confidence": 81
+        "edge": 9.1,
+        "confidence": 90
     },
     {
         "home": "Clippers",
@@ -304,22 +304,22 @@
         "h_tri": "LAC",
         "a_tri": "GS",
         "time": "06:30 PM",
-        "hPred": 116.0,
-        "aPred": 111.6,
+        "hPred": 115.0,
+        "aPred": 107.1,
         "picks": {
-            "Q1": "Clippers",
-            "Q2": "GS",
+            "Q1": "GS",
+            "Q2": "Clippers",
             "Q3": "Clippers",
             "Q4": "GS",
             "1H": "Clippers",
             "Final": "Clippers"
         },
-        "total": 227.6,
-        "spread": -4.4,
-        "totalType": "OVER",
+        "total": 222.1,
+        "spread": -7.9,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 4.9,
-        "confidence": 91
+        "edge": 3.4,
+        "confidence": 88
     },
     {
         "home": "Blazers",
@@ -327,21 +327,21 @@
         "h_tri": "POR",
         "a_tri": "SAC",
         "time": "06:30 PM",
-        "hPred": 112.9,
-        "aPred": 118.4,
+        "hPred": 116.9,
+        "aPred": 109.6,
         "picks": {
-            "Q1": "Kings",
+            "Q1": "Blazers",
             "Q2": "Blazers",
             "Q3": "Blazers",
-            "Q4": "Blazers",
-            "1H": "Kings",
-            "Final": "Kings"
+            "Q4": "Kings",
+            "1H": "Blazers",
+            "Final": "Blazers"
         },
-        "total": 231.3,
-        "spread": 5.5,
-        "totalType": "OVER",
+        "total": 226.5,
+        "spread": -7.3,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 9.7,
-        "confidence": 88
+        "edge": 6.9,
+        "confidence": 96
     }
 ]
