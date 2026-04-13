@@ -1,1 +1,56 @@
-[]
+[
+    {
+        "home": "Bobcats",
+        "away": "Heat",
+        "h_tri": "CHA",
+        "a_tri": "MIA",
+        "time": "05:30 PM",
+        "hPred": 111.7,
+        "aPred": 111.5,
+        "total": 223.2,
+        "spread": -0.2,
+        "totalType": "UNDER",
+        "picks": {
+            "Q1": "Bobcats",
+            "1H": "Bobcats",
+            "Final": "Bobcats"
+        },
+        "injuries": [],
+        "edge": 6.6,
+        "confidence": 88,
+        "h2h_list": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "L"
+        ]
+    },
+    {
+        "home": "Suns",
+        "away": "Blazers",
+        "h_tri": "PHX",
+        "a_tri": "POR",
+        "time": "08:00 PM",
+        "hPred": 114.2,
+        "aPred": 109.4,
+        "total": 223.6,
+        "spread": -4.8,
+        "totalType": "UNDER",
+        "picks": {
+            "Q1": "Suns",
+            "1H": "Suns",
+            "Final": "Suns"
+        },
+        "injuries": [],
+        "edge": 11.4,
+        "confidence": 83,
+        "h2h_list": [
+            "W",
+            "L",
+            "W",
+            "W",
+            "L"
+        ]
+    }
+]
