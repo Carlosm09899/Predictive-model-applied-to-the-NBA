@@ -5,26 +5,23 @@
         "h_tri": "CHA",
         "a_tri": "MIA",
         "time": "05:30 PM",
-        "hPred": 113.0,
-        "aPred": 115.1,
-        "total": 228.1,
-        "spread": 2.1,
+        "hPred": 113.8,
+        "aPred": 107.8,
+        "total": 221.6,
+        "spread": -6.0,
         "totalType": "UNDER",
         "picks": {
-            "Q1": "Heat",
-            "1H": "Heat",
-            "Final": "Heat"
+            "Q1": "Bobcats",
+            "Q2": "Bobcats",
+            "1H": "Bobcats",
+            "Q3": "Bobcats",
+            "Q4": "Bobcats",
+            "2H": "Bobcats",
+            "Final": "Bobcats"
         },
         "injuries": [],
-        "edge": 6.2,
-        "confidence": 93,
-        "h2h_list": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "L"
-        ]
+        "edge": 11.7,
+        "confidence": 79
     },
     {
         "home": "Suns",
@@ -32,25 +29,22 @@
         "h_tri": "PHX",
         "a_tri": "POR",
         "time": "08:00 PM",
-        "hPred": 111.1,
-        "aPred": 103.1,
-        "total": 214.2,
-        "spread": -8.0,
+        "hPred": 111.7,
+        "aPred": 114.5,
+        "total": 226.2,
+        "spread": 2.8,
         "totalType": "UNDER",
         "picks": {
-            "Q1": "Suns",
-            "1H": "Suns",
-            "Final": "Suns"
+            "Q1": "Blazers",
+            "Q2": "Blazers",
+            "1H": "Blazers",
+            "Q3": "Blazers",
+            "Q4": "Blazers",
+            "2H": "Blazers",
+            "Final": "Blazers"
         },
         "injuries": [],
-        "edge": 9.9,
-        "confidence": 87,
-        "h2h_list": [
-            "W",
-            "L",
-            "W",
-            "W",
-            "L"
-        ]
+        "edge": 7.0,
+        "confidence": 93
     }
 ]
