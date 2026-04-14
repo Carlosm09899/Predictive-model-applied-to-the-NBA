@@ -2,10 +2,8 @@ name: NBA Oracle Automation
 
 on:
   schedule:
-    # 04:00 AM CDMX (Auditoría de los juegos de ayer)
+    # 04:00 AM CDMX (Actuañización de los juegos y de la auditoria)
     - cron: '0 5 * * *'
-    # 11:00 AM CDMX (Predicciones para los juegos de hoy)
-    - cron: '0 17 * * *'
   workflow_dispatch: 
 
 jobs:
