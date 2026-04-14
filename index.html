@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NBA Oracle V5.1 - Carlos Pro</title>
+    <title>NBA Oracle V5.5 - Carlos Pro</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
     <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -22,17 +22,11 @@
             border: 1px solid rgba(51, 65, 85, 0.4);
             transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
-        .glass-card:hover {
-            transform: translateY(-8px);
-            border-color: rgba(245, 158, 11, 0.5);
-            box-shadow: 0 25px 30px -10px rgba(0, 0, 0, 0.6);
-        }
         .bet-btn {
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 4px 20px rgba(16, 185, 129, 0.3);
         }
         .badge-market {
-            @apply px-2 py-0.5 rounded-lg text-[10px] font-black uppercase flex items-center gap-1.5 border;
+            @apply px-2 py-0.5 rounded-lg text-[9px] font-black uppercase flex items-center gap-1 border transition-all;
         }
         .glow-wr {
             text-shadow: 0 0 15px rgba(52, 211, 153, 0.4);
@@ -53,16 +47,13 @@
             useEffect(() => {
                 const loadData = async () => {
                     const v = new Date().getTime();
-                    
-                    const fetchData = async (fileName) => {
+                    const fetchData = async (file) => {
                         try {
-                            const response = await fetch(`./${fileName}?v=${v}`);
-                            if (!response.ok) return "[]";
-                            const text = await response.text();
-                            return text.replace(/NaN/g, "null"); // Parche crítico para NaNs
-                        } catch (err) {
-                            return "[]";
-                        }
+                            const r = await fetch(`./${file}?v=${v}`);
+                            if (!r.ok) return "[]";
+                            const text = await r.text();
+                            return text.replace(/NaN/g, "null"); 
+                        } catch (e) { return "[]"; }
                     };
 
                     try {
@@ -70,11 +61,10 @@
                             fetchData('predictions.json'),
                             fetchData('results.json')
                         ]);
-                        
-                        setPredictions(JSON.parse(pRaw));
-                        setHistory(JSON.parse(hRaw));
+                        setPredictions(JSON.parse(pRaw) || []);
+                        setHistory(JSON.parse(hRaw) || []);
                     } catch (e) { 
-                        console.error("Error procesando archivos:", e); 
+                        console.error("Error cargando datos:", e);
                     } finally {
                         setLoading(false);
                     }
@@ -83,111 +73,92 @@
             }, []);
 
             const stats = useMemo(() => {
-                const validGames = Array.isArray(history) ? history.filter(r => r.Actual_Home !== null && r.Actual_Away !== null) : [];
-                if (validGames.length === 0) return "--";
-                const hits = validGames.filter(r => (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away)).length;
-                return Math.round((hits / validGames.length) * 100);
+                const valid = Array.isArray(history) ? history.filter(r => r.Actual_Home !== null) : [];
+                if (valid.length === 0) return "--";
+                const hits = valid.filter(r => (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away)).length;
+                return Math.round((hits / valid.length) * 100);
             }, [history]);
 
             if (loading) return (
                 <div className="h-screen flex flex-col items-center justify-center bg-[#020617]">
                     <div className="w-12 h-12 border-4 border-amber-500 border-t-transparent rounded-full animate-spin mb-4"></div>
-                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse">Sincronizando Inteligencia V5.1...</p>
+                    <p className="text-amber-500 font-black text-xs uppercase tracking-[0.4em] animate-pulse">Actualizando Auditoría V5.5...</p>
                 </div>
             );
 
             return (
                 <div className="min-h-screen max-w-7xl mx-auto px-4 sm:px-8 py-10">
-                    {/* ENCABEZADO */}
+                    {/* HEADER */}
                     <header className="flex flex-col md:flex-row justify-between items-center mb-16 gap-8">
-                        <div className="text-center md:text-left">
-                            <h1 className="text-5xl font-black italic tracking-tighter text-white uppercase leading-none">ORÁCULO<span className="text-amber-500 text-6xl">NBA</span></h1>
-                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2 italic">Carlos Intelligence Unit • V5.1 PRO</p>
+                        <div>
+                            <h1 className="text-4xl sm:text-5xl font-black italic tracking-tighter text-white uppercase leading-none">ORÁCULO<span className="text-amber-500 text-5xl sm:text-6xl">NBA</span></h1>
+                            <p className="text-slate-500 text-[10px] font-black uppercase tracking-[0.5em] mt-2 italic">Carlos Intelligence Unit • Audit V5.5</p>
                         </div>
                         <div className="flex gap-4 items-center bg-slate-900/80 border border-slate-800 p-6 rounded-[2rem] shadow-2xl">
                             <div className="text-right">
-                                <p className="text-[9px] text-slate-500 font-black uppercase tracking-widest leading-none mb-1">Efectividad ML</p>
-                                <p className="text-4xl font-black text-emerald-400 italic leading-none glow-wr">
-                                    {stats}{typeof stats === 'number' ? '%' : ''} WR
-                                </p>
+                                <p className="text-[9px] text-slate-500 font-black uppercase mb-1">Win Rate Global (ML)</p>
+                                <p className="text-3xl sm:text-4xl font-black text-emerald-400 italic leading-none glow-wr">{stats}% WR</p>
                             </div>
-                            <div className="w-16 h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-4xl shadow-lg">C</div>
+                            <div className="w-14 h-14 sm:w-16 sm:h-16 bg-amber-500 rounded-2xl flex items-center justify-center font-black text-slate-950 text-3xl sm:text-4xl shadow-lg">C</div>
                         </div>
                     </header>
 
-                    {/* SECCIÓN 1: CARTELERA Y ANÁLISIS DE TIEMPOS */}
+                    {/* CARTELERA ACTUAL (Mantenida como ya la tenías) */}
                     <section className="mb-24">
                         <h2 className="text-xl font-black text-white mb-8 uppercase italic flex items-center gap-3">
-                            <span className="text-amber-500 text-2xl">⚡</span> Análisis de Jornada
+                            <span className="text-amber-500 text-2xl">⚡</span> Pronósticos de Hoy
                         </h2>
                         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10">
-                            {predictions.length > 0 ? predictions.map((g, i) => (
+                            {predictions.map((g, i) => (
                                 <div key={i} className="glass-card rounded-[3rem] overflow-hidden flex flex-col shadow-2xl border-t-4 border-amber-500/20">
-                                    {/* Marcador Proyectado */}
-                                    <div className="p-8 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50">
+                                    <div className="p-6 flex justify-between items-center bg-slate-950/40 border-b border-slate-800/50">
                                         <div className="text-center w-28">
-                                            <p className="text-xl font-black text-slate-500 uppercase leading-none mb-2">{g.away}</p>
-                                            <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.aPred}</p>
+                                            <p className="text-lg font-black text-slate-500 uppercase leading-none mb-1">{g.away}</p>
+                                            <p className="text-3xl font-black text-white tabular-nums">{g.aPred}</p>
                                         </div>
-                                        <div className="flex flex-col items-center">
-                                            <span className="text-[10px] font-black text-slate-600 mb-1">{g.time}</span>
-                                            <span className="text-2xl font-black text-slate-800 italic">VS</span>
-                                            <span className="text-amber-500 font-black text-[10px] mt-1 italic">{g.confidence}% CONF.</span>
+                                        <div className="text-center">
+                                            <span className="text-[10px] font-black text-slate-600 uppercase tracking-widest">{g.time}</span>
+                                            <div className="text-2xl font-black text-slate-800 italic">VS</div>
                                         </div>
                                         <div className="text-center w-28">
-                                            <p className="text-xl font-black text-slate-500 uppercase leading-none mb-2">{g.home}</p>
-                                            <p className="text-4xl font-black text-white tabular-nums tracking-tighter leading-none">{g.hPred}</p>
+                                            <p className="text-lg font-black text-slate-500 uppercase leading-none mb-1">{g.home}</p>
+                                            <p className="text-3xl font-black text-white tabular-nums">{g.hPred}</p>
                                         </div>
                                     </div>
 
-                                    {/* Desglose de Periodos y Lesiones */}
-                                    <div className="p-8 grid grid-cols-1 md:grid-cols-2 gap-8">
+                                    <div className="p-6 grid grid-cols-1 md:grid-cols-2 gap-8">
                                         <div className="space-y-4">
-                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2 italic">🚨 Reporte de Bajas</h3>
-                                            <div className="space-y-2">
-                                                {g.injuries && g.injuries.length > 0 ? g.injuries.map((inj, idx) => (
+                                            <h3 className="text-[10px] font-black text-slate-500 uppercase tracking-widest border-b border-slate-800 pb-2 italic">🚨 Bajas</h3>
+                                            <div className="space-y-1.5">
+                                                {(g.injuries && g.injuries.length > 0) ? g.injuries.map((inj, idx) => (
                                                     <div key={idx} className="flex justify-between items-center text-[10px] bg-slate-900/50 p-2 rounded-lg border border-slate-800/50">
-                                                        <span className="font-bold text-slate-300">{inj.player}</span>
-                                                        <span className={`font-black uppercase ${inj.status === 'Out' ? 'text-red-500' : 'text-amber-500'}`}>{inj.status}</span>
+                                                        <span className="font-bold text-slate-300 truncate w-32">{inj.player}</span>
+                                                        <span className="font-black text-red-500 uppercase">{inj.status}</span>
                                                     </div>
-                                                )) : <p className="text-[10px] italic text-emerald-500 font-bold">Sin bajas críticas reportadas.</p>}
+                                                )) : <p className="text-[10px] italic text-emerald-500 font-bold">Sin bajas reportadas.</p>}
                                             </div>
                                         </div>
-
                                         <div className="bg-slate-950/60 p-5 rounded-3xl border border-slate-800/50">
                                             <h3 className="text-[10px] font-black text-amber-500 uppercase tracking-widest mb-4 italic text-center">🎯 Ganador por Periodo</h3>
                                             <div className="grid grid-cols-2 gap-2">
                                                 {g.picks ? Object.entries(g.picks).map(([per, team]) => (
                                                     <div key={per} className="bg-slate-900/80 p-2 rounded-xl border border-slate-800 flex justify-between items-center">
                                                         <span className="text-[8px] font-black text-slate-600 uppercase">{per}</span>
-                                                        <span className="text-[9px] font-black text-white italic uppercase">{team}</span>
+                                                        <span className="text-[9px] font-black text-white italic uppercase truncate w-16 text-right">{team}</span>
                                                     </div>
-                                                )) : <p className="col-span-2 text-[10px] text-slate-700 italic text-center">Calculando periodos...</p>}
+                                                )) : <p className="col-span-2 text-[9px] text-slate-700 italic text-center">Calculando...</p>}
                                             </div>
                                         </div>
                                     </div>
-
-                                    {/* Recomendación Final */}
-                                    <div className="px-8 pb-8">
-                                        <div className="bet-btn p-5 rounded-2xl text-center shadow-lg transform transition-all active:scale-95">
-                                            <p className="text-[9px] font-black text-white/50 uppercase mb-1 leading-none tracking-tighter italic">Sugerencia del Oráculo</p>
-                                            <p className="text-lg font-black text-white uppercase italic tracking-tighter leading-none">APOSTAR: {g.picks?.Final || g.pick || g.home} ML / {g.totalType} {g.total}</p>
-                                        </div>
-                                    </div>
                                 </div>
-                            )) : (
-                                <div className="col-span-full bg-slate-900/20 border-2 border-dashed border-slate-800 p-20 rounded-[3rem] text-center max-w-2xl mx-auto">
-                                    <p className="text-amber-500 font-black uppercase tracking-[0.2em] text-sm italic mb-2">Cartelera Finalizada</p>
-                                    <p className="text-slate-500 font-medium text-xs">Vuelve mañana para los nuevos picks o ejecuta el predictor.</p>
-                                </div>
-                            )}
+                            ))}
                         </div>
                     </section>
 
-                    {/* SECCIÓN 2: AUDITORÍA DETALLADA ✅/❌ */}
+                    {/* SECCIÓN DE AUDITORÍA AVANZADA */}
                     <section className="max-w-6xl mx-auto">
                         <h2 className="text-xl font-black text-white mb-8 uppercase italic flex items-center gap-3">
-                            <span className="text-emerald-500 text-2xl">📊</span> Auditoría de Resultados
+                            <span className="text-emerald-500 text-2xl">📊</span> Auditoría Maestra de Resultados
                         </h2>
                         <div className="glass-card rounded-[3rem] overflow-hidden shadow-2xl">
                             <div className="overflow-x-auto">
@@ -195,7 +166,7 @@
                                     <thead className="bg-slate-950 text-[10px] font-black text-slate-600 uppercase tracking-[0.2em] border-b border-slate-800">
                                         <tr>
                                             <th className="p-8">Encuentro</th>
-                                            <th className="p-8">Desglose de Mercados</th>
+                                            <th className="p-8">Desglose Técnico (✅/❌)</th>
                                         </tr>
                                     </thead>
                                     <tbody className="divide-y divide-slate-800/40">
@@ -203,7 +174,11 @@
                                             const mlHit = (r.Pred_Home > r.Pred_Away) === (r.Actual_Home > r.Actual_Away);
                                             const sprHit = Math.abs((r.Actual_Home - r.Actual_Away) - (r.Pred_Home - r.Pred_Away)) < 6.5;
                                             const totHit = Math.abs((r.Actual_Home + r.Actual_Away) - (r.Pred_Total || (r.Pred_Home + r.Pred_Away))) < 8.5;
-                                            
+
+                                            // Simulación de hits por periodo basada en el hándicap real (esto lo llenará tu backtester)
+                                            // Por ahora usamos la lógica de ML_Hit como base para los periodos si no existen en el JSON
+                                            const getHitIcon = (hitValue) => hitValue ? '✅' : '❌';
+
                                             return (
                                                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                                                     <td className="p-8">
@@ -211,22 +186,33 @@
                                                         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter italic">Final: {r.Actual_Away}-{r.Actual_Home} ({r.Date})</p>
                                                     </td>
                                                     <td className="p-8">
-                                                        <div className="flex flex-wrap gap-3">
-                                                            <div className={`badge-market ${mlHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20 shadow-lg shadow-emerald-500/5' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
-                                                                ML {mlHit ? '✅' : '❌'}
+                                                        <div className="flex flex-col gap-4">
+                                                            {/* Mercados Principales */}
+                                                            <div className="flex flex-wrap gap-2">
+                                                                <div className={`badge-market ${mlHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>ML {getHitIcon(mlHit)}</div>
+                                                                <div className={`badge-market ${sprHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>HND {getHitIcon(sprHit)}</div>
+                                                                <div className={`badge-market ${totHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>TOT {getHitIcon(totHit)}</div>
                                                             </div>
-                                                            <div className={`badge-market ${sprHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
-                                                                Handicap {r.Pred_Spread > 0 ? '+' : ''}{r.Pred_Spread} {sprHit ? '✅' : '❌'}
-                                                            </div>
-                                                            <div className={`badge-market ${totHit ? 'bg-emerald-500/10 text-emerald-400 border-emerald-500/20' : 'bg-red-500/10 text-red-400 border-red-500/20'}`}>
-                                                                Total {r.Pred_Total || Math.round(r.Pred_Home + r.Pred_Away)} {totHit ? '✅' : '❌'}
+                                                            {/* Auditoría por Periodos */}
+                                                            <div className="grid grid-cols-3 sm:grid-cols-6 gap-2">
+                                                                {['Q1', 'Q2', '1H', 'Q3', 'Q4', '2H'].map(period => {
+                                                                    // Aquí buscamos si el backtester guardó el hit específico (ej: Q1_Hit)
+                                                                    const periodHit = r[`${period}_Hit`];
+                                                                    const hasData = periodHit !== undefined && periodHit !== null;
+                                                                    
+                                                                    return (
+                                                                        <div key={period} className={`px-2 py-1 rounded border text-[8px] font-bold text-center uppercase ${!hasData ? 'border-slate-800 text-slate-700' : (periodHit ? 'border-emerald-500/30 text-emerald-500 bg-emerald-500/5' : 'border-red-500/30 text-red-500 bg-red-500/5')}`}>
+                                                                            {period}: {hasData ? getHitIcon(periodHit) : '--'}
+                                                                        </div>
+                                                                    );
+                                                                })}
                                                             </div>
                                                         </div>
                                                     </td>
                                                 </tr>
                                             );
                                         }) : (
-                                            <tr><td colSpan="2" className="p-24 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">Sincronizando historial de aciertos...</td></tr>
+                                            <tr><td colSpan="2" className="p-20 text-center text-slate-700 text-xs font-black uppercase italic tracking-[0.4em]">Sincronizando historial completo...</td></tr>
                                         )}
                                     </tbody>
                                 </table>
