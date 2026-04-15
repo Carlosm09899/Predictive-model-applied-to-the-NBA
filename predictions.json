@@ -5,22 +5,22 @@
         "h_tri": "PHX",
         "a_tri": "POR",
         "time": "08:00 PM",
-        "hPred": 114.4,
-        "aPred": 117.8,
-        "total": 232.2,
+        "hPred": 119.2,
+        "aPred": 115.6,
+        "total": 234.8,
         "picks": {
             "Q1": "Suns",
             "Q2": "Suns",
-            "Q3": "Suns",
+            "Q3": "Blazers",
             "Q4": "Blazers",
-            "1H": "Blazers",
-            "2H": "Blazers",
-            "Final": "Blazers"
+            "1H": "Suns",
+            "2H": "Suns",
+            "Final": "Suns"
         },
-        "spread": 3.4,
+        "spread": -3.6,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 10.3,
+        "edge": 6.0,
         "confidence": 80
     }
 ]
