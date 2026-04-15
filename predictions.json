@@ -5,9 +5,9 @@
         "h_tri": "PHX",
         "a_tri": "POR",
         "time": "08:00 PM",
-        "hPred": 119.2,
-        "aPred": 115.6,
-        "total": 234.8,
+        "hPred": 123.8,
+        "aPred": 115.1,
+        "total": 238.9,
         "picks": {
             "Q1": "Suns",
             "Q2": "Suns",
@@ -17,10 +17,10 @@
             "2H": "Suns",
             "Final": "Suns"
         },
-        "spread": -3.6,
+        "spread": -8.7,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 6.0,
-        "confidence": 80
+        "edge": 8.1,
+        "confidence": 97
     }
 ]
