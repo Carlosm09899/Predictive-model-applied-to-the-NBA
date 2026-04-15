@@ -39,6 +39,26 @@
     <script type="text/babel">
         const { useState, useEffect, useMemo } = React;
 
+        // Mapeo de abreviaturas a nicknames para fácil identificación
+        const teamNames = {
+            'ATL': 'Hawks', 'BOS': 'Celtics', 'BKN': 'Nets', 'BK': 'Nets',
+            'CHA': 'Hornets', 'CHI': 'Bulls', 'CLE': 'Cavaliers',
+            'DAL': 'Mavericks', 'DEN': 'Nuggets', 'DET': 'Pistons',
+            'GS': 'Warriors', 'GSW': 'Warriors',
+            'HOU': 'Rockets', 'IND': 'Pacers',
+            'LAC': 'Clippers', 'LAL': 'Lakers',
+            'MEM': 'Grizzlies', 'MIA': 'Heat', 'MIL': 'Bucks', 'MIN': 'Timberwolves',
+            'NO': 'Pelicans', 'NOP': 'Pelicans',
+            'NY': 'Knicks', 'NYK': 'Knicks',
+            'OKC': 'Thunder', 'ORL': 'Magic',
+            'PHI': 'Sixers', 'PHX': 'Suns', 'POR': 'Trail Blazers',
+            'SA': 'Spurs', 'SAS': 'Spurs', 'SAC': 'Kings',
+            'TOR': 'Raptors',
+            'UTA': 'Jazz', 'UTAH': 'Jazz', 'UTH': 'Jazz',
+            'WAS': 'Wizards', 'WSH': 'Wizards',
+        };
+        const tn = (abbr) => teamNames[abbr] || abbr;
+
         const App = () => {
             const [predictions, setPredictions] = useState([]);
             const [history, setHistory] = useState([]);
@@ -182,7 +202,7 @@
                                             return (
                                                 <tr key={i} className="hover:bg-white/[0.02] transition-colors">
                                                     <td className="p-8">
-                                                        <p className="text-sm font-black text-white uppercase leading-none mb-1">{r.Away} @ {r.Home}</p>
+                                                        <p className="text-sm font-black text-white uppercase leading-none mb-1">{tn(r.Away)} @ {tn(r.Home)}</p>
                                                         <p className="text-[10px] text-slate-500 font-bold uppercase tracking-tighter italic">Final: {r.Actual_Away}-{r.Actual_Home} ({r.Date})</p>
                                                     </td>
                                                     <td className="p-8">

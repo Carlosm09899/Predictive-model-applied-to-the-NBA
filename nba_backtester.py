@@ -39,11 +39,11 @@ def audit_my_bets():
     df_log = pd.read_csv(log_file)
     
     # 1. EVITAR EL BUCLE DEL PASADO
-    # Solo intentaremos auditar juegos de los últimos 5 días para no trabarnos con errores viejos
-    hace_5_dias = (datetime.now() - timedelta(days=5)).strftime('%Y-%m-%d')
+    # Solo intentaremos auditar juegos de los últimos 10 días para cubrir gaps del calendario (Play-In, etc)
+    hace_n_dias = (datetime.now() - timedelta(days=10)).strftime('%Y-%m-%d')
     
     # Buscamos juegos pendientes que sean RECIENTES
-    pending_mask = (df_log['Actual_Home'].isna() | (df_log['Actual_Home'] == 0)) & (df_log['Date'] >= hace_5_dias)
+    pending_mask = (df_log['Actual_Home'].isna() | (df_log['Actual_Home'] == 0)) & (df_log['Date'] >= hace_n_dias)
     pending = df_log[pending_mask].copy()
 
     if pending.empty:
@@ -51,10 +51,21 @@ def audit_my_bets():
     else:
         print(f"🔍 Auditando {len(pending)} juegos de fechas recientes...")
         
-        name_map = {
-            'GSW': 'GS', 'BKN': 'BKN', 'PHX': 'PHX', 'NYK': 'NY', 'SAS': 'SA', 
-            'NOP': 'NO', 'UTA': 'UTA', 'CHA': 'CHA', 'OKC': 'OKC', 'LAL': 'LAL'
-        }
+        # Grupos de alias: todas las abreviaturas que representan al mismo equipo
+        alias_groups = [
+            ['GS', 'GSW'],
+            ['NY', 'NYK'],
+            ['SA', 'SAS', 'SAN'],
+            ['NO', 'NOP', 'NOH', 'NOK'],
+            ['UTAH', 'UTA', 'UTH'],
+            ['WSH', 'WAS'],
+            ['BK', 'BKN'],
+        ]
+        # Construir lookup: para cualquier abreviatura, dame todos sus alias
+        alias_lookup = {}
+        for group in alias_groups:
+            for abbr in group:
+                alias_lookup[abbr] = group
         
         pending_dates = pending['Date'].unique()
         all_stats = {} 
@@ -67,16 +78,22 @@ def audit_my_bets():
                 if comp['status']['type']['name'] in ['STATUS_FINAL', 'STATUS_FULL_TIME']:
                     for competitor in comp['competitors']:
                         raw_tri = competitor['team']['abbreviation']
-                        mapped_tri = name_map.get(raw_tri, raw_tri)
                         
                         ls = competitor.get('linescores', [])
                         q_pts = [int(q.get('value', 0)) for q in ls]
                         while len(q_pts) < 4: q_pts.append(0)
                         
-                        all_stats[(mapped_tri, d)] = {
+                        stats_entry = {
                             'final': int(competitor.get('score', 0)),
                             'q1': q_pts[0], 'q2': q_pts[1], 'q3': q_pts[2], 'q4': q_pts[3]
                         }
+                        
+                        # Guardar bajo TODOS los alias posibles para asegurar el match
+                        aliases = alias_lookup.get(raw_tri, [raw_tri])
+                        for alias in aliases:
+                            all_stats[(alias, d)] = stats_entry
+                        # También guardar bajo la abreviatura cruda por si no está en alias
+                        all_stats[(raw_tri, d)] = stats_entry
 
         # Actualización de Hits
         updated_count = 0
@@ -110,6 +127,18 @@ def audit_my_bets():
 
         df_log.to_csv(log_file, index=False)
         print(f"📝 Se actualizaron {updated_count} resultados nuevos.")
+
+    # --- REPARAR FILAS HUÉRFANAS (tienen score pero falta ML_Hit) ---
+    repair_mask = df_log['Actual_Home'].notna() & (df_log['Actual_Home'] != 0) & df_log['ML_Hit'].isna()
+    if repair_mask.any():
+        repaired = 0
+        for idx, row in df_log[repair_mask].iterrows():
+            real_win = "H" if row['Actual_Home'] > row['Actual_Away'] else "A"
+            pred_win = "H" if row['Pred_Home'] > row['Pred_Away'] else "A"
+            df_log.loc[idx, 'ML_Hit'] = 1 if real_win == pred_win else 0
+            repaired += 1
+        df_log.to_csv(log_file, index=False)
+        print(f"🔧 Se repararon {repaired} filas con ML_Hit faltante.")
 
     # --- EXPORTACIÓN ULTRA-LIMPIA ---
     # Convertimos todo lo que sea NaN a None (null en JSON) para no romper el HTML

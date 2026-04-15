@@ -2,6 +2,7 @@ import pandas as pd
 import joblib
 import numpy as np
 import json
+import os
 import requests
 from datetime import datetime, timedelta
 import warnings
@@ -118,5 +119,54 @@ if __name__ == "__main__":
             json.dump(web_preds, f, indent=4)
         print(f"🔥 Predicciones V5.6 generadas con éxito para {len(web_preds)} juegos.")
         
+        # --- GUARDAR PREDICCIONES EN EL HISTORIAL CSV ---
+        history_file = "predictions_history.csv"
+        today_str = mx_now.strftime('%Y-%m-%d')
+        
+        # Cargar historial existente o crear uno nuevo
+        if os.path.exists(history_file):
+            df_hist_csv = pd.read_csv(history_file)
+        else:
+            df_hist_csv = pd.DataFrame()
+        
+        new_rows = []
+        for pred in web_preds:
+            h_tri = pred['h_tri']
+            a_tri = pred['a_tri']
+            
+            # Evitar duplicados: verificar si ya existe esta combinación fecha+equipos
+            if not df_hist_csv.empty:
+                already_exists = ((df_hist_csv['Date'] == today_str) & 
+                                  (df_hist_csv['Home'] == h_tri) & 
+                                  (df_hist_csv['Away'] == a_tri)).any()
+                if already_exists:
+                    continue
+            
+            new_rows.append({
+                'Date': today_str,
+                'Home': h_tri,
+                'Away': a_tri,
+                'Pred_Home': pred['hPred'],
+                'Pred_Away': pred['aPred'],
+                'Pred_Total': pred['total'],
+                'Pred_Spread': pred['spread'],
+                'Actual_Home': np.nan,
+                'Actual_Away': np.nan,
+                'ML_Hit': np.nan,
+                'Spread_Hit': np.nan,
+                'Total_Hit': np.nan,
+                'Pred_Q1_Winner': pred['picks'].get('Q1', ''),
+                'Pred_Q2_Winner': pred['picks'].get('Q2', ''),
+                'Pred_1H_Winner': pred['picks'].get('1H', ''),
+            })
+        
+        if new_rows:
+            df_new = pd.DataFrame(new_rows)
+            df_hist_csv = pd.concat([df_hist_csv, df_new], ignore_index=True)
+            df_hist_csv.to_csv(history_file, index=False)
+            print(f"📝 {len(new_rows)} predicciones nuevas guardadas en {history_file}")
+        else:
+            print(f"📋 Sin predicciones nuevas para guardar (ya existentes o sin juegos).")
+
     except Exception as e:
         print(f"❌ Error en flujo principal: {e}")

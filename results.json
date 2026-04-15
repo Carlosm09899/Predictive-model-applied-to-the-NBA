@@ -1,17 +1,20 @@
 [
     {
-        "Date": "2026-04-09",
-        "Home": "HOU",
-        "Away": "PHI",
-        "Pred_Home": 119.7,
-        "Pred_Away": 113.3,
-        "Pred_Total": 233.0,
-        "Pred_Spread": 6.4,
-        "Actual_Home": 113.0,
-        "Actual_Away": 102.0,
+        "Date": "2026-04-07",
+        "Home": "PHX",
+        "Away": "HOU",
+        "Pred_Home": 113.7,
+        "Pred_Away": 114.2,
+        "Pred_Total": 227.9,
+        "Pred_Spread": -0.5,
+        "Actual_Home": 105.0,
+        "Actual_Away": 119.0,
         "ML_Hit": 1.0,
-        "Spread_Hit": 1.0,
-        "Total_Hit": 0.0
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -25,7 +28,10 @@
         "Actual_Away": 114.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 1.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -39,7 +45,10 @@
         "Actual_Away": 123.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -53,7 +62,10 @@
         "Actual_Away": 102.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 1.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-08",
@@ -67,7 +79,10 @@
         "Actual_Away": 119.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-08",
@@ -81,7 +96,10 @@
         "Actual_Away": 128.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-08",
@@ -95,7 +113,10 @@
         "Actual_Away": 107.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 1.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -109,7 +130,10 @@
         "Actual_Away": 119.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -123,7 +147,10 @@
         "Actual_Away": 106.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-09",
@@ -137,7 +164,10 @@
         "Actual_Away": 119.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -151,7 +181,10 @@
         "Actual_Away": 118.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -165,7 +198,10 @@
         "Actual_Away": 140.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -179,7 +215,10 @@
         "Actual_Away": 102.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -193,7 +232,10 @@
         "Actual_Away": 118.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -207,7 +249,10 @@
         "Actual_Away": 105.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -221,7 +266,10 @@
         "Actual_Away": 95.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -235,7 +283,10 @@
         "Actual_Away": 127.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 1.0
+        "Total_Hit": 1.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -249,7 +300,10 @@
         "Actual_Away": 108.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -263,7 +317,10 @@
         "Actual_Away": 120.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -277,7 +334,10 @@
         "Actual_Away": 107.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -291,7 +351,10 @@
         "Actual_Away": 136.0,
         "ML_Hit": 0.0,
         "Spread_Hit": 1.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -305,7 +368,10 @@
         "Actual_Away": 101.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -319,7 +385,10 @@
         "Actual_Away": 97.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -333,7 +402,10 @@
         "Actual_Away": 118.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 1.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     },
     {
         "Date": "2026-04-10",
@@ -347,6 +419,9 @@
         "Actual_Away": 73.0,
         "ML_Hit": 1.0,
         "Spread_Hit": 0.0,
-        "Total_Hit": 0.0
+        "Total_Hit": 0.0,
+        "Q1_Hit": null,
+        "Q2_Hit": null,
+        "1H_Hit": null
     }
 ]
