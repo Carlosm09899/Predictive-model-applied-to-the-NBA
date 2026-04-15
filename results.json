@@ -1,22 +1,5 @@
 [
     {
-        "Date": "2026-04-07",
-        "Home": "PHX",
-        "Away": "HOU",
-        "Pred_Home": 113.7,
-        "Pred_Away": 114.2,
-        "Pred_Total": 227.9,
-        "Pred_Spread": -0.5,
-        "Actual_Home": 105.0,
-        "Actual_Away": 119.0,
-        "ML_Hit": 1.0,
-        "Spread_Hit": null,
-        "Total_Hit": null,
-        "Q1_Hit": null,
-        "Q2_Hit": null,
-        "1H_Hit": null
-    },
-    {
         "Date": "2026-04-09",
         "Home": "TOR",
         "Away": "MIA",
@@ -31,7 +14,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-09",
@@ -48,7 +34,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-09",
@@ -65,7 +54,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-08",
@@ -82,7 +74,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-08",
@@ -99,7 +94,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-08",
@@ -116,7 +114,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-09",
@@ -133,7 +134,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-09",
@@ -150,7 +154,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-09",
@@ -167,7 +174,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -184,7 +194,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -201,7 +214,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -218,7 +234,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -235,7 +254,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -252,7 +274,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -269,7 +294,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -286,7 +314,10 @@
         "Total_Hit": 1.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -303,7 +334,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -320,7 +354,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -337,7 +374,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -354,7 +394,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -371,7 +414,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -388,7 +434,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -405,7 +454,10 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
     },
     {
         "Date": "2026-04-10",
@@ -422,6 +474,29 @@
         "Total_Hit": 0.0,
         "Q1_Hit": null,
         "Q2_Hit": null,
-        "1H_Hit": null
+        "1H_Hit": null,
+        "Pred_Q1_Winner": null,
+        "Pred_Q2_Winner": null,
+        "Pred_1H_Winner": null
+    },
+    {
+        "Date": "2026-04-14",
+        "Home": "PHX",
+        "Away": "POR",
+        "Pred_Home": 123.8,
+        "Pred_Away": 115.1,
+        "Pred_Total": 238.9,
+        "Pred_Spread": -8.7,
+        "Actual_Home": 110.0,
+        "Actual_Away": 114.0,
+        "ML_Hit": 0.0,
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": 0.0,
+        "Q2_Hit": 0.0,
+        "1H_Hit": 0.0,
+        "Pred_Q1_Winner": "Suns",
+        "Pred_Q2_Winner": "Suns",
+        "Pred_1H_Winner": "Suns"
     }
 ]
