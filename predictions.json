@@ -1,1 +1,50 @@
-[]
+[
+    {
+        "home": "Magic",
+        "away": "Hornets",
+        "h_tri": "ORL",
+        "a_tri": "CHA",
+        "time": "05:30 PM",
+        "hPred": 118.7,
+        "aPred": 122.9,
+        "total": 241.6,
+        "picks": {
+            "Q1": "Hornets",
+            "Q2": "Hornets",
+            "Q3": "Hornets",
+            "Q4": "Hornets",
+            "1H": "Hornets",
+            "2H": "Hornets",
+            "Final": "Hornets"
+        },
+        "spread": 4.2,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 8.9,
+        "confidence": 97
+    },
+    {
+        "home": "Suns",
+        "away": "GS",
+        "h_tri": "PHX",
+        "a_tri": "GS",
+        "time": "08:00 PM",
+        "hPred": 120.4,
+        "aPred": 113.9,
+        "total": 234.3,
+        "picks": {
+            "Q1": "Suns",
+            "Q2": "Suns",
+            "Q3": "Suns",
+            "Q4": "GS",
+            "1H": "Suns",
+            "2H": "Suns",
+            "Final": "Suns"
+        },
+        "spread": -6.5,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 8.0,
+        "confidence": 76
+    }
+]
