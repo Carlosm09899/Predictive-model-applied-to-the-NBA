@@ -64,7 +64,7 @@ Date,Home,Away,Pred_Home,Pred_Away,Pred_Total,Pred_Spread,Actual_Home,Actual_Awa
 2026-04-25,PHX,OKC,116.8,122.8,239.6,6.0,109.0,121.0,1.0,,,0.0,0.0,0.0,Thunder,Thunder,Thunder
 2026-04-25,ATL,NY,128.3,109.6,237.9,-18.7,98.0,114.0,0.0,,,0.0,0.0,0.0,Hawks,Hawks,Hawks
 2026-04-25,MIN,DEN,109.1,129.6,238.7,20.5,112.0,96.0,0.0,,,0.0,0.0,0.0,Nuggets,Nuggets,Nuggets
-2026-04-26,TOR,CLE,127.7,118.5,246.2,-9.2,,,,,,,,,Raptors,Cavaliers,Raptors
-2026-04-26,POR,SA,123.9,111.6,235.5,-12.3,,,,,,,,,Blazers,Blazers,Blazers
-2026-04-26,PHI,BOS,113.4,113.7,227.1,0.3,,,,,,,,,Celtics,76ers,Celtics
-2026-04-26,HOU,LAL,128.6,118.5,247.1,-10.1,,,,,,,,,Rockets,Rockets,Rockets
+2026-04-26,TOR,CLE,127.7,118.5,246.2,-9.2,93.0,89.0,1.0,,,0.0,0.0,0.0,Raptors,Cavaliers,Raptors
+2026-04-26,POR,SA,123.9,111.6,235.5,-12.3,93.0,114.0,0.0,,,0.0,0.0,0.0,Blazers,Blazers,Blazers
+2026-04-26,PHI,BOS,113.4,113.7,227.1,0.3,96.0,128.0,1.0,,,0.0,0.0,0.0,Celtics,76ers,Celtics
+2026-04-26,HOU,LAL,128.6,118.5,247.1,-10.1,115.0,96.0,1.0,,,0.0,0.0,0.0,Rockets,Rockets,Rockets
