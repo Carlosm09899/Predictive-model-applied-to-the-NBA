@@ -1,1 +1,74 @@
-[]
+[
+    {
+        "home": "Magic",
+        "away": "Pistons",
+        "h_tri": "ORL",
+        "a_tri": "DET",
+        "time": "06:00 PM",
+        "hPred": 120.7,
+        "aPred": 117.8,
+        "total": 238.5,
+        "picks": {
+            "Q1": "Pistons",
+            "Q2": "Magic",
+            "Q3": "Pistons",
+            "Q4": "Pistons",
+            "1H": "Magic",
+            "2H": "Pistons",
+            "Final": "Magic"
+        },
+        "spread": -2.9,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 8.7,
+        "confidence": 94
+    },
+    {
+        "home": "Suns",
+        "away": "Thunder",
+        "h_tri": "PHX",
+        "a_tri": "OKC",
+        "time": "07:30 PM",
+        "hPred": 115.3,
+        "aPred": 125.8,
+        "total": 241.1,
+        "picks": {
+            "Q1": "Thunder",
+            "Q2": "Thunder",
+            "Q3": "Thunder",
+            "Q4": "Thunder",
+            "1H": "Thunder",
+            "2H": "Thunder",
+            "Final": "Thunder"
+        },
+        "spread": 10.5,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 8.0,
+        "confidence": 75
+    },
+    {
+        "home": "Nuggets",
+        "away": "Timberwolves",
+        "h_tri": "DEN",
+        "a_tri": "MIN",
+        "time": "08:30 PM",
+        "hPred": 131.1,
+        "aPred": 104.1,
+        "total": 235.2,
+        "picks": {
+            "Q1": "Nuggets",
+            "Q2": "Nuggets",
+            "Q3": "Nuggets",
+            "Q4": "Timberwolves",
+            "1H": "Nuggets",
+            "2H": "Nuggets",
+            "Final": "Nuggets"
+        },
+        "spread": -27.0,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 5.7,
+        "confidence": 82
+    }
+]
