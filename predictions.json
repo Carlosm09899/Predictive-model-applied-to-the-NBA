@@ -1,74 +1,26 @@
 [
     {
-        "home": "Magic",
-        "away": "Pistons",
-        "h_tri": "ORL",
-        "a_tri": "DET",
-        "time": "05:00 PM",
-        "hPred": 121.6,
-        "aPred": 118.7,
-        "total": 240.3,
-        "picks": {
-            "Q1": "Pistons",
-            "Q2": "Magic",
-            "Q3": "Magic",
-            "Q4": "Pistons",
-            "1H": "Magic",
-            "2H": "Pistons",
-            "Final": "Magic"
-        },
-        "spread": -2.9,
-        "totalType": "OVER",
-        "injuries": [],
-        "edge": 4.5,
-        "confidence": 95
-    },
-    {
-        "home": "Raptors",
-        "away": "Cavaliers",
-        "h_tri": "TOR",
-        "a_tri": "CLE",
+        "home": "Celtics",
+        "away": "76ers",
+        "h_tri": "BOS",
+        "a_tri": "PHI",
         "time": "05:30 PM",
-        "hPred": 122.4,
-        "aPred": 122.6,
-        "total": 245.0,
+        "hPred": 124.6,
+        "aPred": 115.0,
+        "total": 239.6,
         "picks": {
-            "Q1": "Raptors",
-            "Q2": "Cavaliers",
-            "Q3": "Cavaliers",
-            "Q4": "Cavaliers",
-            "1H": "Cavaliers",
-            "2H": "Cavaliers",
-            "Final": "Cavaliers"
+            "Q1": "Celtics",
+            "Q2": "76ers",
+            "Q3": "Celtics",
+            "Q4": "76ers",
+            "1H": "Celtics",
+            "2H": "Celtics",
+            "Final": "Celtics"
         },
-        "spread": 0.2,
+        "spread": -9.6,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 9.7,
-        "confidence": 78
-    },
-    {
-        "home": "Rockets",
-        "away": "Lakers",
-        "h_tri": "HOU",
-        "a_tri": "LAL",
-        "time": "07:30 PM",
-        "hPred": 126.1,
-        "aPred": 121.5,
-        "total": 247.6,
-        "picks": {
-            "Q1": "Rockets",
-            "Q2": "Rockets",
-            "Q3": "Rockets",
-            "Q4": "Lakers",
-            "1H": "Rockets",
-            "2H": "Rockets",
-            "Final": "Rockets"
-        },
-        "spread": -4.6,
-        "totalType": "OVER",
-        "injuries": [],
-        "edge": 4.5,
-        "confidence": 85
+        "edge": 10.1,
+        "confidence": 79
     }
 ]
