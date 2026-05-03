@@ -1,26 +1,50 @@
 [
     {
-        "home": "Celtics",
-        "away": "76ers",
-        "h_tri": "BOS",
-        "a_tri": "PHI",
-        "time": "05:30 PM",
-        "hPred": 124.6,
-        "aPred": 115.0,
-        "total": 239.6,
+        "home": "Pistons",
+        "away": "Magic",
+        "h_tri": "DET",
+        "a_tri": "ORL",
+        "time": "01:30 PM",
+        "hPred": 117.5,
+        "aPred": 121.8,
+        "total": 239.3,
         "picks": {
-            "Q1": "Celtics",
-            "Q2": "76ers",
-            "Q3": "Celtics",
-            "Q4": "76ers",
-            "1H": "Celtics",
-            "2H": "Celtics",
-            "Final": "Celtics"
+            "Q1": "Pistons",
+            "Q2": "Magic",
+            "Q3": "Magic",
+            "Q4": "Magic",
+            "1H": "Magic",
+            "2H": "Magic",
+            "Final": "Magic"
         },
-        "spread": -9.6,
+        "spread": 4.3,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 10.1,
-        "confidence": 79
+        "edge": 9.6,
+        "confidence": 80
+    },
+    {
+        "home": "Cavaliers",
+        "away": "Raptors",
+        "h_tri": "CLE",
+        "a_tri": "TOR",
+        "time": "05:30 PM",
+        "hPred": 119.5,
+        "aPred": 117.0,
+        "total": 236.5,
+        "picks": {
+            "Q1": "Cavaliers",
+            "Q2": "Cavaliers",
+            "Q3": "Raptors",
+            "Q4": "Raptors",
+            "1H": "Cavaliers",
+            "2H": "Raptors",
+            "Final": "Cavaliers"
+        },
+        "spread": -2.5,
+        "totalType": "OVER",
+        "injuries": [],
+        "edge": 10.6,
+        "confidence": 88
     }
 ]
