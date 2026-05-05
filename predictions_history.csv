@@ -86,5 +86,7 @@ Date,Home,Away,Pred_Home,Pred_Away,Pred_Total,Pred_Spread,Actual_Home,Actual_Awa
 2026-05-02,BOS,PHI,124.6,115.0,239.6,-9.6,100.0,109.0,0.0,,,0.0,0.0,0.0,Celtics,76ers,Celtics
 2026-05-03,DET,ORL,117.5,121.8,239.3,4.3,116.0,94.0,0.0,,,0.0,0.0,0.0,Pistons,Magic,Magic
 2026-05-03,CLE,TOR,119.5,117.0,236.5,-2.5,114.0,102.0,1.0,,,0.0,0.0,0.0,Cavaliers,Cavaliers,Cavaliers
-2026-05-04,NY,PHI,114.3,125.0,239.3,10.7,,,,,,,,,76ers,76ers,76ers
-2026-05-04,SA,MIN,113.8,113.9,227.7,0.1,,,,,,,,,SA,SA,Timberwolves
+2026-05-04,NY,PHI,114.3,125.0,239.3,10.7,137.0,98.0,0.0,,,0.0,0.0,0.0,76ers,76ers,76ers
+2026-05-04,SA,MIN,113.8,113.9,227.7,0.1,102.0,104.0,1.0,,,0.0,1.0,0.0,SA,SA,Timberwolves
+2026-05-05,DET,CLE,118.6,118.3,236.9,-0.3,,,,,,,,,Pistons,Cavaliers,Pistons
+2026-05-05,OKC,LAL,122.2,116.5,238.7,-5.7,,,,,,,,,Thunder,Thunder,Thunder
