@@ -96,5 +96,7 @@ Date,Home,Away,Pred_Home,Pred_Away,Pred_Total,Pred_Spread,Actual_Home,Actual_Awa
 2026-05-07,OKC,LAL,122.0,113.6,235.6,-8.4,125.0,107.0,1.0,,,0.0,0.0,0.0,Thunder,Thunder,Thunder
 2026-05-08,PHI,NY,121.7,112.3,234.0,-9.4,94.0,108.0,0.0,,,0.0,0.0,0.0,76ers,76ers,76ers
 2026-05-08,MIN,SA,109.9,106.3,216.2,-3.6,108.0,115.0,0.0,,,0.0,0.0,0.0,Timberwolves,SA,Timberwolves
-2026-05-09,CLE,DET,127.4,122.9,250.3,-4.5,,,,,,,,,Cavaliers,Cavaliers,Cavaliers
-2026-05-09,LAL,OKC,117.5,122.1,239.6,4.6,,,,,,,,,Thunder,Thunder,Thunder
+2026-05-09,CLE,DET,127.4,122.9,250.3,-4.5,116.0,109.0,1.0,,,0.0,0.0,0.0,Cavaliers,Cavaliers,Cavaliers
+2026-05-09,LAL,OKC,117.5,122.1,239.6,4.6,108.0,131.0,1.0,,,0.0,0.0,0.0,Thunder,Thunder,Thunder
+2026-05-10,PHI,NY,120.3,109.6,229.9,-10.7,,,,,,,,,76ers,76ers,76ers
+2026-05-10,MIN,SA,115.0,106.2,221.2,-8.8,,,,,,,,,Timberwolves,SA,Timberwolves
