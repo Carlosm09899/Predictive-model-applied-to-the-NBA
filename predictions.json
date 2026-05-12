@@ -1,50 +1,26 @@
 [
     {
-        "home": "Cavaliers",
-        "away": "Pistons",
-        "h_tri": "CLE",
-        "a_tri": "DET",
+        "home": "SA",
+        "away": "Timberwolves",
+        "h_tri": "SA",
+        "a_tri": "MIN",
         "time": "06:00 PM",
-        "hPred": 124.9,
-        "aPred": 117.8,
-        "total": 242.7,
+        "hPred": 116.3,
+        "aPred": 109.4,
+        "total": 225.7,
         "picks": {
-            "Q1": "Cavaliers",
-            "Q2": "Cavaliers",
-            "Q3": "Pistons",
-            "Q4": "Pistons",
-            "1H": "Cavaliers",
-            "2H": "Cavaliers",
-            "Final": "Cavaliers"
+            "Q1": "SA",
+            "Q2": "SA",
+            "Q3": "Timberwolves",
+            "Q4": "Timberwolves",
+            "1H": "SA",
+            "2H": "SA",
+            "Final": "SA"
         },
-        "spread": -7.1,
-        "totalType": "OVER",
+        "spread": -6.9,
+        "totalType": "UNDER",
         "injuries": [],
-        "edge": 4.2,
-        "confidence": 93
-    },
-    {
-        "home": "Lakers",
-        "away": "Thunder",
-        "h_tri": "LAL",
-        "a_tri": "OKC",
-        "time": "08:30 PM",
-        "hPred": 115.0,
-        "aPred": 121.8,
-        "total": 236.8,
-        "picks": {
-            "Q1": "Thunder",
-            "Q2": "Thunder",
-            "Q3": "Lakers",
-            "Q4": "Thunder",
-            "1H": "Thunder",
-            "2H": "Thunder",
-            "Final": "Thunder"
-        },
-        "spread": 6.8,
-        "totalType": "OVER",
-        "injuries": [],
-        "edge": 10.7,
-        "confidence": 81
+        "edge": 5.1,
+        "confidence": 88
     }
 ]
