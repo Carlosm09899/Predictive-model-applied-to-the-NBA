@@ -1,26 +1,26 @@
 [
     {
-        "home": "SA",
-        "away": "Timberwolves",
-        "h_tri": "SA",
-        "a_tri": "MIN",
+        "home": "Pistons",
+        "away": "Cavaliers",
+        "h_tri": "DET",
+        "a_tri": "CLE",
         "time": "06:00 PM",
-        "hPred": 116.3,
-        "aPred": 109.4,
-        "total": 225.7,
+        "hPred": 121.1,
+        "aPred": 121.5,
+        "total": 242.6,
         "picks": {
-            "Q1": "SA",
-            "Q2": "SA",
-            "Q3": "Timberwolves",
-            "Q4": "Timberwolves",
-            "1H": "SA",
-            "2H": "SA",
-            "Final": "SA"
+            "Q1": "Pistons",
+            "Q2": "Cavaliers",
+            "Q3": "Pistons",
+            "Q4": "Cavaliers",
+            "1H": "Cavaliers",
+            "2H": "Cavaliers",
+            "Final": "Cavaliers"
         },
-        "spread": -6.9,
-        "totalType": "UNDER",
+        "spread": 0.4,
+        "totalType": "OVER",
         "injuries": [],
-        "edge": 5.1,
-        "confidence": 88
+        "edge": 8.4,
+        "confidence": 83
     }
 ]
