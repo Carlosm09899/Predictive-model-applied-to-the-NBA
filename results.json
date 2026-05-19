@@ -1,26 +1,6 @@
 [
     {
         "Date": "2026-05-01",
-        "Home": "ORL",
-        "Away": "DET",
-        "Pred_Home": 121.6,
-        "Pred_Away": 118.7,
-        "Pred_Total": 240.3,
-        "Pred_Spread": -2.9,
-        "Actual_Home": 79.0,
-        "Actual_Away": 93.0,
-        "ML_Hit": 0.0,
-        "Spread_Hit": null,
-        "Total_Hit": null,
-        "Q1_Hit": 0.0,
-        "Q2_Hit": 0.0,
-        "1H_Hit": 0.0,
-        "Pred_Q1_Winner": "Pistons",
-        "Pred_Q2_Winner": "Magic",
-        "Pred_1H_Winner": "Magic"
-    },
-    {
-        "Date": "2026-05-01",
         "Home": "TOR",
         "Away": "CLE",
         "Pred_Home": 122.4,
@@ -498,5 +478,25 @@
         "Pred_Q1_Winner": "Pistons",
         "Pred_Q2_Winner": "Cavaliers",
         "Pred_1H_Winner": "Cavaliers"
+    },
+    {
+        "Date": "2026-05-18",
+        "Home": "OKC",
+        "Away": "SA",
+        "Pred_Home": 121.1,
+        "Pred_Away": 106.9,
+        "Pred_Total": 228.0,
+        "Pred_Spread": -14.2,
+        "Actual_Home": 115.0,
+        "Actual_Away": 122.0,
+        "ML_Hit": 0.0,
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": 0.0,
+        "Q2_Hit": 0.0,
+        "1H_Hit": 0.0,
+        "Pred_Q1_Winner": "Thunder",
+        "Pred_Q2_Winner": "Thunder",
+        "Pred_1H_Winner": "Thunder"
     }
 ]
