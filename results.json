@@ -1,25 +1,5 @@
 [
     {
-        "Date": "2026-05-02",
-        "Home": "BOS",
-        "Away": "PHI",
-        "Pred_Home": 124.6,
-        "Pred_Away": 115.0,
-        "Pred_Total": 239.6,
-        "Pred_Spread": -9.6,
-        "Actual_Home": 100.0,
-        "Actual_Away": 109.0,
-        "ML_Hit": 0.0,
-        "Spread_Hit": null,
-        "Total_Hit": null,
-        "Q1_Hit": 0.0,
-        "Q2_Hit": 0.0,
-        "1H_Hit": 0.0,
-        "Pred_Q1_Winner": "Celtics",
-        "Pred_Q2_Winner": "76ers",
-        "Pred_1H_Winner": "Celtics"
-    },
-    {
         "Date": "2026-05-03",
         "Home": "DET",
         "Away": "ORL",
@@ -498,5 +478,25 @@
         "Pred_Q1_Winner": "Thunder",
         "Pred_Q2_Winner": "Thunder",
         "Pred_1H_Winner": "Thunder"
+    },
+    {
+        "Date": "2026-05-21",
+        "Home": "NY",
+        "Away": "CLE",
+        "Pred_Home": 114.7,
+        "Pred_Away": 122.1,
+        "Pred_Total": 236.8,
+        "Pred_Spread": 7.4,
+        "Actual_Home": 109.0,
+        "Actual_Away": 93.0,
+        "ML_Hit": 0.0,
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": 0.0,
+        "Q2_Hit": 0.0,
+        "1H_Hit": 0.0,
+        "Pred_Q1_Winner": "Cavaliers",
+        "Pred_Q2_Winner": "Cavaliers",
+        "Pred_1H_Winner": "Cavaliers"
     }
 ]
