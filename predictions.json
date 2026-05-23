@@ -1,26 +1,26 @@
 [
     {
-        "home": "SA",
-        "away": "Thunder",
-        "h_tri": "SA",
-        "a_tri": "OKC",
-        "time": "06:30 PM",
-        "hPred": 110.4,
-        "aPred": 118.2,
-        "total": 228.6,
+        "home": "Cavaliers",
+        "away": "NY",
+        "h_tri": "CLE",
+        "a_tri": "NY",
+        "time": "06:00 PM",
+        "hPred": 118.2,
+        "aPred": 109.6,
+        "total": 227.8,
         "picks": {
-            "Q1": "Thunder",
-            "Q2": "Thunder",
-            "Q3": "Thunder",
-            "Q4": "Thunder",
-            "1H": "Thunder",
-            "2H": "Thunder",
-            "Final": "Thunder"
+            "Q1": "Cavaliers",
+            "Q2": "Cavaliers",
+            "Q3": "Cavaliers",
+            "Q4": "NY",
+            "1H": "Cavaliers",
+            "2H": "Cavaliers",
+            "Final": "Cavaliers"
         },
-        "spread": 7.8,
+        "spread": -8.6,
         "totalType": "OVER",
         "injuries": [],
-        "edge": 10.4,
-        "confidence": 81
+        "edge": 8.6,
+        "confidence": 92
     }
 ]
