@@ -1,25 +1,5 @@
 [
     {
-        "Date": "2026-05-04",
-        "Home": "SA",
-        "Away": "MIN",
-        "Pred_Home": 113.8,
-        "Pred_Away": 113.9,
-        "Pred_Total": 227.7,
-        "Pred_Spread": 0.1,
-        "Actual_Home": 102.0,
-        "Actual_Away": 104.0,
-        "ML_Hit": 1.0,
-        "Spread_Hit": null,
-        "Total_Hit": null,
-        "Q1_Hit": 0.0,
-        "Q2_Hit": 1.0,
-        "1H_Hit": 0.0,
-        "Pred_Q1_Winner": "SA",
-        "Pred_Q2_Winner": "SA",
-        "Pred_1H_Winner": "Timberwolves"
-    },
-    {
         "Date": "2026-05-05",
         "Home": "DET",
         "Away": "CLE",
@@ -498,5 +478,25 @@
         "Pred_Q1_Winner": "Thunder",
         "Pred_Q2_Winner": "Thunder",
         "Pred_1H_Winner": "Thunder"
+    },
+    {
+        "Date": "2026-05-25",
+        "Home": "CLE",
+        "Away": "NY",
+        "Pred_Home": 114.7,
+        "Pred_Away": 115.4,
+        "Pred_Total": 230.1,
+        "Pred_Spread": 0.7,
+        "Actual_Home": 93.0,
+        "Actual_Away": 130.0,
+        "ML_Hit": 1.0,
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": 0.0,
+        "Q2_Hit": 0.0,
+        "1H_Hit": 1.0,
+        "Pred_Q1_Winner": "Cavaliers",
+        "Pred_Q2_Winner": "Cavaliers",
+        "Pred_1H_Winner": "NY"
     }
 ]
