@@ -1,1 +1,26 @@
-[]
+[
+    {
+        "home": "NY",
+        "away": "SA",
+        "h_tri": "NY",
+        "a_tri": "SA",
+        "time": "06:30 PM",
+        "hPred": 111.0,
+        "aPred": 108.8,
+        "total": 219.8,
+        "picks": {
+            "Q1": "NY",
+            "Q2": "SA",
+            "Q3": "NY",
+            "Q4": "SA",
+            "1H": "NY",
+            "2H": "SA",
+            "Final": "NY"
+        },
+        "spread": -2.2,
+        "totalType": "UNDER",
+        "injuries": [],
+        "edge": 8.2,
+        "confidence": 88
+    }
+]
