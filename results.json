@@ -1,25 +1,5 @@
 [
     {
-        "Date": "2026-05-07",
-        "Home": "OKC",
-        "Away": "LAL",
-        "Pred_Home": 122.0,
-        "Pred_Away": 113.6,
-        "Pred_Total": 235.6,
-        "Pred_Spread": -8.4,
-        "Actual_Home": 125.0,
-        "Actual_Away": 107.0,
-        "ML_Hit": 1.0,
-        "Spread_Hit": null,
-        "Total_Hit": null,
-        "Q1_Hit": 0.0,
-        "Q2_Hit": 0.0,
-        "1H_Hit": 0.0,
-        "Pred_Q1_Winner": "Thunder",
-        "Pred_Q2_Winner": "Thunder",
-        "Pred_1H_Winner": "Thunder"
-    },
-    {
         "Date": "2026-05-08",
         "Home": "PHI",
         "Away": "NY",
@@ -498,5 +478,25 @@
         "Pred_Q1_Winner": "SA",
         "Pred_Q2_Winner": "NY",
         "Pred_1H_Winner": "SA"
+    },
+    {
+        "Date": "2026-06-08",
+        "Home": "NY",
+        "Away": "SA",
+        "Pred_Home": 111.0,
+        "Pred_Away": 108.8,
+        "Pred_Total": 219.8,
+        "Pred_Spread": -2.2,
+        "Actual_Home": 111.0,
+        "Actual_Away": 115.0,
+        "ML_Hit": 0.0,
+        "Spread_Hit": null,
+        "Total_Hit": null,
+        "Q1_Hit": 0.0,
+        "Q2_Hit": 0.0,
+        "1H_Hit": 1.0,
+        "Pred_Q1_Winner": "NY",
+        "Pred_Q2_Winner": "SA",
+        "Pred_1H_Winner": "NY"
     }
 ]
